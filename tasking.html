@@ -1,0 +1,995 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Tasking 任务分解与设计</title>
+  <link rel="stylesheet" href="lib/css/font-awesome.css">
+  <link rel="stylesheet" href="./css/reveal.css">
+  <link rel="stylesheet" href="./css/theme/myplanet.css">
+  <link rel="stylesheet" href="./css/presentation.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/highlight-github.css">
+  <!--<link rel="stylesheet" href="./css/highlight/zenburn.css">-->
+  <link rel="stylesheet" href="./css/print/paper.css"
+        type="text/css" media="print">
+
+
+  <link rel="shortcut icon" href="https://raw.githubusercontent.com/JimmyLv/jimmylv.github.io/master/favicon.ico">
+
+  <meta property="og:url" content="https://gapple.github.io/presentation-better-analytics/" />
+  <meta property="og:title" content="Tasking 任务分解与设计" />
+  <meta property="og:image" content="https://gapple.github.io/presentation-better-analytics/images/facebook-card.png" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@gappleca">
+  <meta name="twitter:image" content="https://gapple.github.io/presentation-better-analytics/images/twitter-card.png">
+  <script src="js/reveal-print.js"></script>
+</head>
+<body>
+<div class="reveal pattern--baozun">
+  <div class="slides commands">
+    <section>
+      <section class="title" id="title">
+        <div class="grid-wrapper">
+          <div class="header">
+            <div class="logo logo--full"><span class="visually-hidden">JimmyLv</span></div>
+          </div>
+          <div class="content">
+            <h1>Tasking 任务分解与设计</h1>
+            <div class="description">
+              宝尊电商 BAOZUN eCommerce Inc. ©2018
+            </div>
+          </div>
+          <div class="credit">
+            <hr>
+            <div class="label">Presented By</div>
+            <div class="name">Jimmy Lv</div>
+          </div>
+          <a class="presentation-url" href="https://github.com/JimmyLv/tdd-with-react.workshop">https://github.com/JimmyLv/tdd-with-react.workshop</a>
+        </div>
+      </section>
+      <section class="about" id="about">
+        <img src="./images/myphoto.jpg" alt="JimmyLv">
+        <div class="grid-wrapper">
+          <div class="content">
+            <aside>
+              <h2>Hey, I'm JimmyLv!</h2>
+              <hr>
+              <ul class="projects">
+                <li><a href="https://blog.jimmylv.info">想做产品，却误入程序世界爱上游戏设计的摄影师。</a></li>
+              </ul>
+              <hr>
+              <ul class="accounts">
+                <li class="user"><a href="https://blog.jimmylv.info"><i class="fa fa-vcard-o"></i>
+                  <span>吕靖</span></a></li>
+                <li class="zhihu"><a href="https://www.zhihu.com/people/JimmyLv"><i class="fa fa-search"></i>
+                  <span>吕立青</span></a></li>
+                <li class="github"><a href="https://www.github.com/JimmyLv"><i class="fa fa-github"></i>
+                  <span>JimmyLv</span></a></li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+      <section class="about" id="slogan">
+        <div class="grid-wrapper">
+          <div class="content">
+            <h1>在学习的同时帮助他人学习;</h1>
+            <h1>在成长的同时帮助他人成长。</h1>
+          </div>
+        </div>
+      </section>
+    </section>
+    <section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+
+# 🧐 **什么是 Tasking？**
+<!-- .slide: class="color--none"-->
+</script></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🧐 **你的梦想是什么？**
+<!-- .slide: class="color--none"-->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none"-->
+<div style="display: flex; justify-content: space-around">
+  <img src="./images/tasking/qq.png" height="600">
+  <img src="./images/tasking/dream.png" height="600">
+</div>
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🧐 如何移民火星？
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" data-background="./images/tasking/Musk.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" data-background="./images/tasking/Musk.jpg" -->
+
+# 伊隆·马斯克 (Elon Musk)
+# [让人类成为一个多星球物种](https://m.igetget.com/share/audio/aid/Nmg5jc4UOshNKsTc8oK2)
+
+<aside class="notes"><p>2016</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 把 100 万人送上火星生活
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 💰 100 亿美金
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 💰 100 亿美金 x 100 万人 = 美国500年 GDP
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🏡 50 万美金
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🏡 100 亿美金 = 50 万美金 x [2 万倍](http://tech.qq.com/a/20180327/022113.htm)
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 2 万倍 = 20 x 10 x 100
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 20
+<!-- .slide: class="color--none" data-background="./images/tasking/BFR.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" data-background="./images/tasking/Starship.jpg" -->
+
+<aside class="notes"><p>2019</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 10
+<!-- .slide: class="color--none" data-background="./images/tasking/falcon-9.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" data-background="./images/tasking/rocket-capability-poster.png" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 100
+<!-- .slide: class="color--none" data-background="./images/tasking/recycle.png" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" data-background="./images/tasking/recycle.gif" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 把 100 万人送上火星生活
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 伊隆·马斯克 创办的公司/组织：
+
+- ~~PayPal 网络支付~~
+- SpeaceX 太空火箭 Starship
+- [Tesla](https://www.tesla.cn/blog/secret-tesla-motors-master-plan-just-between-you-and-me) 电动汽车 Roadster
+- SolarCity 太阳能
+- Hyperloop 地下高铁 Boring Company
+- Starlink 太空互联网
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 2002 SpaceX
+<!-- .slide: class="color--none" data-background="./images/tasking/SpaceX.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 2003 Tesla
+<!-- .slide: class="color--none" data-background="./images/tasking/Roadster.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 2006 SolarCity
+<!-- .slide: class="color--none" data-background="./images/tasking/SolarCity.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 2014 Hyperloop
+<!-- .slide: class="color--none" data-background="./images/tasking/Hyperloop.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 2015 Starlink
+<!-- .slide: class="color--none" data-background="./images/tasking/Starlink.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🏡 2 万倍 = 20 x 10 x 100
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" data-background="./images/tasking/Musk-Mars.jpg" -->
+</script></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# ✨ Tasking 入门
+<!-- .slide: class="color--none" -->
+
+<aside class="notes"><p>经常有同学说编程没有思路
+其实是不会做任务分解，任务分解可以帮助我们把一个大的问题分解为一个个小的问题，然后逐个击破，这是非常重要的工程化思维方式。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 把大象放进冰箱需要几步？
+
+<img src="./images/tdd/tasking.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 把长颈鹿放进冰箱需要几步？
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 森林里开大会谁没去？
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 一个人过鳄鱼湖为什么没有被鳄鱼吃掉？
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+
+# ✨ Tasking 核心点
+
+## 1. 各自独立
+## 2. 完全穷尽
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Tasking - 任务描述
+
+<img src="./images/tdd/tasking-1.png" height="560">
+
+<aside class="notes"><p>没有思路首先是因为我们对问题描述得不够清晰。很多人在思考问题的时候是用蛮力的，想不出来就使劲想，憋着不干别的，等着大脑里蹦出一个答案。这种做法是非常不可取的，尽管我们大脑的潜意识具有仅次于阿尔法Go的思考力，你也不能这么虐待它，好钢要用在刀刃上。
+正如上图所示，很多人思考任务也就是一句话的任务描述，而一句话根本是不够清晰的，我们需要一些思维框架让问题更加清晰。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 清晰的思维是第一步，不能看到就不能思考</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 抽象：输入 & 输出
+
+<img src="./images/tdd/tasking-2.png" height="560">
+
+<aside class="notes"><p>计算机程序可以简单的抽象为输入，处理和输出。所谓的处理，是处理过程的简称，也就是代码，它既可以是左边的结构化的代码块，也可以是右边封装好的函数。无论哪一种，都有输入输出。
+      这个思维框架就是很好的思维框架，既然程序是要考虑输入和输出的，而我们的任务就是写程序，那么自然也要考虑输入输出</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 使用 输入/输出 描述 Task
+
+<img src="./images/tdd/tasking-3.png" height="560">
+
+<aside class="notes"><p>回到之前的图，把输入输出加上，就变成了上面这个样子。
+      每个输入输出都有名字和数据结构。
+      就输入来说，如果是代码块，那么就是另一块代码创建某个变量，如果是函数，那可能就是参数。
+      就输出来说，如果是代码块，那么就是创建出来给别的代码块使用的变量，如果是函数，那可能就是返回值。
+      而不管哪一个，都是有名字和数据结构的。
+      往往输入的数据结构可以从前面的输出中找到，所以可以省略掉就不想了。</p>
+<pre><code>  如果是面向对象的话，输出的name就不太重要了，重点是数据结构
+  的类名。
+</code></pre></aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 一个典型的示例
+<figure class="code"><pre>
+```bash
+#1 函数a
+输入：
+    paramX: TypeX
+输出：
+    aValue: TypeA
+
+#2 函数b
+输入：
+    paramY: TypeY
+输出：
+    bValue: TypeB
+
+#3 函数c
+输入：
+    paramZ: TypeZ
+输出：
+    cValue: TypeC
+```
+
+<aside><img src="./images/tdd/function.png" height="560"></aside>
+
+<aside class="notes"><p>唯一需要强调的就是穷尽了，我们思考问题的时候，如果不把输入输出穷尽，我们也是无法想清楚问题的。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 更详细的 Tasking - 5W1H
+
+<img src="./images/tdd/detailed-tasking.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 更详细的 Task
+
+<img src="./images/tdd/detailed-tasking-1.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<figure class="code"><pre>
+```bash
+#1 函数a
+输入：
+    paramX: TypeX
+    bValue: TypeB <- 函数b
+    cValue: TypeC <- 函数c
+输出：
+    aValue: TypeA
+    paramY: TypeY -> 函数b
+    paramZ: TypeZ -> 函数c
+
+#2 函数b
+输入：
+    paramY: TypeY
+输出：
+    bValue: TypeB
+
+#3 函数c
+输入：
+    paramZ: TypeZ
+输出：
+    cValue: TypeC
+```
+
+<aside><img src="./images/tdd/function.png" height="560"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 更复杂情况的分析
+
+<img src="./images/tdd/detailed-tasking-2.png" height="560">
+
+<aside class="notes"><p>如果是简单的情况还可以如上图所示去写，但当我们面对更复杂的情况的时候，我们要借助图形来表达。
+然后只需要在每一对输入输出上标上编号，对每一对输入输出进行分析就好了。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 思维工具
+
+- 纸 & 笔
+- 列大纲
+- 思维导图
+</script></section></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" data-background="./images/tasking/mars-rover.jpg" -->
+
+# MarsRover 火星漫游者
+</script></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 副本 - MarsRover 火星漫游者
+
+火星漫步者在某块区域中根据指令进行移动，然后采集相应位置的火星数据。
+
+<br/>
+指令包含方向指令(L/R)+移动指令(M)，
+
+程序的需求是，计算火星漫步者在接收一系列指令后的最终位置（坐标+方向）
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 示例
+
+<figure class="code"><pre>
+```bash
+Input File (example):
+5 5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM
+
+Expected Output:
+1 3 N
+5 1 E
+```
+
+白板地址： [https://witeboard.com/5f5d61e0-696c-11e8-a4b5-851b25c65348](https://witeboard.com/5f5d61e0-696c-11e8-a4b5-851b25c65348)
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🚀 动手时间！
+<!-- .slide: class="color--none" data-background="./images/banana.gif" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 计算火星车位置
+<br>
+- read file 读取文件
+- format inputs 格式化输入
+
+<br>
+
+- calculate position by one command  通过一个指令计算位置
+- calculate position by multiple commands 通过多个指令计算位置
+- calculate orientation 计算方向
+
+<br>
+
+- check is out of boundary 检查是否超出边界
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# calculate rovers position,
+## filePath => positionResult
+
+<figure class="code"><pre>
+```bash
+input:
+filePath
+
+output:
+1 3 N
+5 1 E
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# read file,
+## filePath => fileContent
+
+<figure class="code"><pre>
+```bash
+input:
+filePath
+
+output:
+fileContent
+5 5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM
+```
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🚀 动手时间！
+<!-- .slide: class="color--none" data-background="./images/dog.gif" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# format inputs,
+## fileContent => boundary, position, commands
+
+<figure class="code"><pre>
+```bash
+input:
+fileContent
+5 5
+1 2 N
+LMLMLMLMM
+
+output:
+(5, 5)
+(1, 2, N)
+['L', 'M', 'L', 'M', 'L', 'M', 'L', 'M', 'M']
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# calculate position by command,
+## currentPosition, command => position
+
+<figure class="code"><pre>
+```bash
+input:
+currentPosition: 1, 1, N / 5, 5, N
+command: L / M
+
+output:
+position: 1, 1, W  / 5, 5, N
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# calculate position by commands
+## currentPosition, commands => position
+
+<figure class="code"><pre>
+```bash
+input:
+currentPosition: 1, 1, N
+commands: LM
+
+output:
+position: 0, 1, W
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# calculate orientation
+## currentOrientation, orientationCommand => orientation
+
+<figure class="code"><pre>
+```bash
+input:
+N, L
+
+output:
+W
+
+Orientations:
+N -> W -> S -> E
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# isOutOfBoundary
+## position, boundary => result(True/False)
+
+<figure class="code"><pre>
+```bash
+input:
+position: 1, 1, N
+
+output:
+result: false
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🎉 副本通关 - MarsRover 火星漫游者
+
+- 可以通过一串指令操控火星漫游者号可以在平原上移动
+- 火星漫游者号能够接收(L/R/M)构成的字符串指令，并返回执x行后的位置和方向
+- 火星漫游者号移动过程中不能越过平原的边界
+- 火星漫游者号应该忽略错误的指令
+
+
+<figure class="code"><pre>
+```bash
+Input File:
+5 5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM
+
+Expected Output:
+1 3 N
+5 1 E
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 执行 Task
+
+<img src="./images/tdd/plan.png" height="560">
+
+<aside class="notes"><p>画完的任务总是要执行的，在执行之前，要估算一下这个任务要多长时间。实际执行之后再进行对比，不管估多了还是估少了，差距过长就需要分析原因，执行之后进行对比，以发现自己的可改进之处。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 对 Task 进行估算和回顾
+
+- spike时间
+- 写完测试的时间
+- 写完实现的时间
+- 测试跑通的时间
+
+<aside class="notes"><p>事后要进行追溯，写出非计划时间表</p>
+<p>spike分三种：
+  相对于团队属于前沿知识的spike——sr.的责任，或者second tier pre sr.
+  团队内，别人知道，你不知道的知识——询问机制，带人，节省搜索时间
+  大概知道，具体API用法不熟——专项训练</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 精益思想：Define-Build-Measure-Learn
+
+<img src="./images/tdd/LEAN.png" height="660">
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# ✨ Tasking 进阶
+<!-- .slide: class="color--none" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 一个抽象的盒子
+
+<img src="./images/tdd/function.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 盒子内与盒子外，
+# 关注接口还是关注实现
+
+<aside><img src="./images/tdd/tasking-box-1.png" height="560"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 跳到外面的外面，
+# 才能发现场景
+
+<aside><img src="./images/tdd/tasking-box-2.png" height="560"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 任务分解，
+# 也是可以抽象的
+
+<aside><img src="./images/tdd/tasking-example.png" height="560"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# Tasking 核心点
+
+- 完全穷尽
+- 各自独立
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 总结
+<!-- .slide: class="color--none" data-background="./images/tdd/relax.jpeg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 知识树
+## 全面，且准确。
+<!-- .slide: class="color--none" -->
+</script></section></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 以终为始
+## 培训的结束，是学习的开始。
+<!-- .slide: class="color--none" -->
+</script></section>
+    <section id="end" class="color--midnight">
+      <div class="grid-wrapper">
+        <div class="content">
+          <h1>Thank You!</h1>
+          <br>
+          <h3>祝大家都能写出没有 Bug 的代码！</h3>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <a href="https://blog.jimmylv.info"><i class="fa fa-at"></i><span>JimmyLv</span></a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script src="./lib/js/head.min.js"></script>
+<script src="./js/reveal.js"></script>
+<script>
+  function extend() {
+    var target = {}
+    for (var i = 0; i < arguments.length; i++) {
+      var source = arguments[i]
+      for (var key in source) {
+        if (source.hasOwnProperty(key)) {
+          target[key] = source[key]
+        }
+      }
+    }
+    return target
+  }
+
+  // Optional libraries used to extend on reveal.js
+  var deps = [
+    { src: './lib/js/classList.js', condition: function () { return !document.body.classList } },
+    {
+      src: './plugin/markdown/marked.js',
+      condition: function () { return !!document.querySelector('[data-markdown]') },
+    },
+    {
+      src: './plugin/markdown/markdown.js',
+      condition: function () { return !!document.querySelector('[data-markdown]') },
+    },
+    {
+      src: './plugin/highlight/highlight.js',
+      async: true,
+      callback: function () { hljs.initHighlightingOnLoad() },
+    },
+    { src: './plugin/zoom-js/zoom.js', async: true },
+    { src: './plugin/notes/notes.js', async: true },
+    { src: './plugin/math/math.js', async: true },
+  ]
+
+  // default options to init reveal.js
+  var defaultOptions = {
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    transition: 'default', // none/fade/slide/convex/concave/zoom
+    dependencies: deps,
+  }
+
+  // options from URL query string
+  var queryOptions = Reveal.getQueryHash() || {}
+
+  var options = {
+  {}}
+
+  options = extend(defaultOptions, options, queryOptions)
+</script>
+
+
+<script>
+  Reveal.initialize(options)
+</script>
+<script src="js/reveal-init.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1328 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>测试驱动开发 TDD (with JavaScript)</title>
+  <link rel="stylesheet" href="lib/css/font-awesome.css">
+  <link rel="stylesheet" href="./css/reveal.css">
+  <link rel="stylesheet" href="./css/theme/myplanet.css">
+  <link rel="stylesheet" href="./css/presentation.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/highlight-github.css">
+  <!--<link rel="stylesheet" href="./css/highlight/zenburn.css">-->
+  <link rel="stylesheet" href="./css/print/paper.css"
+        type="text/css" media="print">
+
+
+  <link rel="shortcut icon" href="https://o7mw3gkkh.qnssl.com/blog/public/img/favicon.ico">
+
+  <meta property="og:url" content="https://gapple.github.io/presentation-better-analytics/" />
+  <meta property="og:title" content="测试驱动开发 TDD (with JavaScript)" />
+  <meta property="og:image" content="https://gapple.github.io/presentation-better-analytics/images/facebook-card.png" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@gappleca">
+  <meta name="twitter:image" content="https://gapple.github.io/presentation-better-analytics/images/twitter-card.png">
+  <script src="js/reveal-print.js"></script>
+</head>
+<body>
+<div class="reveal pattern--baozun">
+  <div class="slides commands">
+    <section>
+      <section class="title" id="title">
+        <div class="grid-wrapper">
+          <div class="header">
+            <div class="logo logo--full"><span class="visually-hidden">JimmyLv</span></div>
+          </div>
+          <div class="content">
+            <h1>测试驱动开发<br /> TDD (with JavaScript)</h1>
+            <div class="description">
+              宝尊电商 BAOZUN eCommerce Inc. ©2018
+            </div>
+          </div>
+          <div class="credit">
+            <hr>
+            <div class="label">Presented By</div>
+            <div class="name">Jimmy Lv</div>
+          </div>
+          <a class="presentation-url" href="https://github.com/JimmyLv/tdd-with-react.workshop">https://github.com/JimmyLv/tdd-with-react.workshop</a>
+        </div>
+      </section>
+      <section class="about" id="about">
+        <img src="./images/myphoto.jpg" alt="JimmyLv">
+        <div class="grid-wrapper">
+          <div class="content">
+            <aside>
+              <h2>Hey, I'm JimmyLv!</h2>
+              <hr>
+              <ul class="projects">
+                <li><a href="https://blog.jimmylv.info">想做产品，却误入程序世界爱上游戏设计的摄影师。</a></li>
+              </ul>
+              <hr>
+              <ul class="accounts">
+                <li class="user"><a href="https://blog.jimmylv.info"><i class="fa fa-vcard-o"></i>
+                  <span>吕靖</span></a></li>
+                <li class="zhihu"><a href="https://www.zhihu.com/people/JimmyLv"><i class="fa fa-search"></i>
+                  <span>吕立青</span></a></li>
+                <li class="github"><a href="https://www.github.com/JimmyLv"><i class="fa fa-github"></i>
+                  <span>JimmyLv</span></a></li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+      <section class="about" id="slogan">
+        <div class="grid-wrapper">
+          <div class="content">
+            <h1>在学习的同时帮助他人学习;</h1>
+            <h1>在成长的同时帮助他人成长。</h1>
+          </div>
+        </div>
+      </section>      
+    </section>
+    <section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+
+# 📢 Agenda
+
+## 1️⃣ TDD 初体验
+## 2️⃣ 如何实践 TDD
+## 3️⃣ TDD 与 JavaScript
+
+<aside><img src="./images/tdd/agenda.jpg" height="450"></aside>
+
+<aside class="notes"><p>我们从三方面</p>
+<h2 id="1-tdd-">1️⃣ TDD 入门</h2>
+<ul>
+<li>🧐 什么是TDD？</li>
+<li>为什么要 TDD？</li>
+<li>演示 - FizzBuzz</li>
+</ul>
+<h2 id="2-tdd-">2️⃣ 如何实践 TDD：</h2>
+<ul>
+<li>TDD Cycle 红-绿-重构</li>
+<li>Tasking 任务分解与设计</li>
+<li>UnitTest 基础 Mock/Stub、异步测试</li>
+<li>Refactoring 坏味道 &amp; 重构手法</li>
+</ul>
+<h2 id="3-tdd-with-javascript-">3️⃣ TDD with JavaScript：</h2>
+<ul>
+<li>组件化与 UI 测试</li>
+<li>组件单元测试进阶</li>
+<li>Storybook 组件驱动开发</li>
+<li>数据流测试</li>
+</ul>
+</aside></script></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🧐 **什么是TDD？**
+<!-- .slide: class="color--none"-->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# TDD：测试驱动开发
+
+TDD 是一种不同于传统软件开发流程的**新型**开发方法。
+
+它要求**测试先行**，在编写某个功能的代码之前先编写测试代码，
+
+然后只编写使测试通过的功能代码，通过测试来**推动**整个开发的进行。
+
+<aside><img src="./images/tdd/Test-Driven-Development-Cycle.jpg" height="466"></aside>
+
+<aside class="notes"><p>这有助于编写简洁可用和高质量的代码，并加速开发过程。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 极限编程
+## Extreme Programming
+
+<aside><img src="./images/tdd/XP.png" height="666"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 核心点：缩短反馈周期
+<aside><img src="./images/tdd/xp-feedback.png" height="700"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 精益思想：Define-Build-Measure-Learn
+
+<img src="./images/tdd/lean.png" height="800">
+<!-- <aside><img src="./images/tdd/LEAN.png" height="666"></aside> -->
+
+<!-- 
+# 敏捷开发： 更快地交付有价值的可工作软件
+
+<img src="./images/tdd/agile-cycle.png" height="666">
+ -->
+<aside class="notes"><p>如何更快地交付有价值的可工作的软件？有这样一个指标来度量这个「更快」，那就是 lead time，它度量的是一个 idea 从提出被验证，到最终上生产环境面对用户的时间。显然，这个时间越短，软件获得反馈的时间就越短，对价值的验证就越快发生。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 传统编码方式
+
+- 需求分析，想不清楚细节，管他呢，先开始写
+- 发现需求细节不明确，去跟业务人员确认
+- 确认好几次终于写完所有逻辑
+- 运行起来测试一下，果然不工作，调试
+- 调试好久终于工作了...
+- 转测试，QA 测出 bug，debug， 打补丁
+- 终于，代码可以工作了...
+- 一看代码烂的像坨屎，不敢动，动了还得手工测试，还得让 QA 测试，还得加班...
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" data-background="./images/tdd/sayno2panda.gif" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# TDD 编码方式
+
+- 先**分解任务**，分离关注点
+- 列 Example，用**实例化**需求，澄清需求细节
+- 写测试，只关注需求，程序的**输入输出**，不关心中间过程
+- 写实现，不考虑别的需求，用**最简单的方式**满足当前这个小需求即可
+- **重构**，用手法消除代码里的**坏味道**
+- 写完，手动测试一下，基本没什么问题，有问题补个用例，修复
+- 转测试，小问题，补用例，修复
+- 代码整洁且用例齐全，**信心满满**地提交。
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" data-background="./images/tdd/panda.png" -->
+
+<aside class="notes"><p>这里我玩了一个小小的梗，… vs 。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 更长的时间维度……
+
+## 保存上下文。
+
+<aside class="notes"><p>每天上班之前都可以有一个任务列表，便于快速进入状态，
+下班之后就可以一个一个划掉自己的任务列表，成就感满满。
+更长期的是，团队的人员变动，充分的测试保障，又能力去改善遗留代码。</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🧐 如何做 TDD？
+<!-- .slide: class="color--none" data-background="./images/tdd/coffee.jpeg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# TDD 循环：
+# 红-绿-重构
+
+<aside><img src="./images/tdd/tdd-cycle.jpg" height="500"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 五个步骤
+
+1. 快速新增一个测试
+2. 运行所有的测试，发现新增的测试不能通过
+3. 做一些小小的改动，尽快地让测试程序可运行
+4. 运行所有的测试，并且全部通过
+5. 重构代码，以消除重复设计，优化设计结构
+
+<aside><img src="./images/tdd/tdd-cycle.jpg" height="500"></aside>
+</script></section></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🚀 代码时间！
+<!-- .slide: class="color--none" data-background="./images/dog.gif" -->
+</script></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 演示 - FizzBuzz
+
+写一个程序打印1到100这些数字。
+
+但是遇到数字为3的倍数的时候，打印“Fizz”替代数字，
+
+遇到数字为 5 的倍数时，用“Buzz”代替，
+
+既是3的倍数又是5的倍数打印“FizzBuzz”。
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 画图（纸和笔）
+
+<img src="./images/tdd/fizzBuzz.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 实例化需求
+
+number: Int | result: String
+--|--
+1|'1'
+3|'Fizz'
+5|'Buzz'
+15|'FizzBuzz'
+
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 任务 1：当数字不能被3或5整除时，返回数字的字符串
+## `1 => '1'`
+
+<figure class="code"><pre>
+```bash
+input:
+number: 1
+
+output:
+string: '1'
+```</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 任务 2：当数字能被3整除时，返回Fizz字符串
+## `3 => 'Fizz'`
+
+<figure class="code"><pre>
+```bash
+input:
+number: 3
+
+output:
+string: 'Fizz'
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 任务 3：当数字能被5整除时，返回Buzz字符串
+## `5 => 'Buzz'`
+
+<figure class="code"><pre>
+```bash
+input:
+number: 5
+
+output:
+string: 'Buzz'
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 任务 4：当数字能被3或5整除时，返回FizzBuzz字符串
+## `15 => 'FizzBuzz'`
+
+<figure class="code"><pre>
+```bash
+input:
+number: 15
+
+output:
+string: 'FizzBuzz'
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# **Test-Driven Development** 的含义
+
+- Task-Driven Development
+- Test First Development
+- Test-Driven Design
+
+<aside class="notes"><p>测试覆盖下的设计改善</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🧐 为什么要 TDD？
+<!-- .slide: class="color--none"-->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# TDD的核心：缩短反馈周期
+<aside><img src="./images/tdd/xp-feedback.png" height="700"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 效率
+
+## - 提前确认需求，减少浪费
+## - 小步快走，缩短反馈周期
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 重构
+
+## - 演进式设计，持续改进
+## - 面向接口编程，合理架构
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 质量
+
+## - 高测试覆盖率
+## - 自动回归测试
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+
+# 自动化测试 Showcase
+
+/Users/Jing/Downloads/自动化测试showcase.mov
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# TDD 不是什么
+
+### 关于 TDD 的边界讨论中，最常见的三个东西便是：需求、设计、代码质量。
+
+* TDD 不能为你做设计 - 如果你本来不会设计、没做设计
+* TDD 不能为你明确需求 - 如果你本来就不确定业务需求
+* TDD 不能为你提高代码质量 - 如果你本来就不知道怎么写整洁代码
+</script></section></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🧐 如何学习TDD?
+
++ Tasking 任务分解与设计
++ UnitTest 基础 Mock/Stub、异步测试
++ Refactoring 坏味道 & 重构手法
+
+<aside><img src="./images/tdd/tdd-cycle.png" height="560"></aside>
+</script></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Tasking 任务分解与设计
+<!-- .slide: class="color--none" -->
+
+<aside class="notes"><p>经常有同学说编程没有思路
+其实是不会做任务分解，任务分解可以帮助我们把一个大的问题分解为一个个小的问题，然后逐个击破，这是非常重要的工程化思维方式。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Tasking - 任务分解的核心点
+
+- 完全穷尽
+- 各自独立
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 把大象放进冰箱需要几步？
+
+<img src="./images/tdd/tasking.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 把长颈鹿放进冰箱需要几步？
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 森林里开大会谁没去？
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 一个人过鳄鱼湖为什么没有被鳄鱼吃掉？
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Tasking - 任务分解的核心点
+
+- 完全穷尽
+- 各自独立
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Tasking - 如何描述一个任务？
+
+<img src="./images/tdd/tasking-1.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Tasking - 关注 输入/输出
+
+<img src="./images/tdd/tasking-2.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Tasking - 数据和数据结构
+
+<img src="./images/tdd/tasking-3.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 一个典型的示例
+
+<figure class="code"><pre>
+```bash
+#1 函数a
+输入：
+    paramX: TypaX
+输出：
+    bValue: TypeA
+#2 函数b
+输入：
+    paramY: TypeY
+输出：
+    cValue: TypeB
+#3 函数c
+输入：
+    paramZ: TypeZ
+输出：
+    aValue: TypeC
+```
+
+<aside><img src="./images/tdd/function.png" height="560"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 更详细的 Tasking
+
+<img src="./images/tdd/detailed-tasking.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 更详细的任务描述：从哪儿来，到哪儿去？
+
+<img src="./images/tdd/detailed-tasking-1.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 一个典型的更详细的 Task 示例
+<figure class="code"><pre>
+```bash
+#1 函数a
+输入：
+    paramX: TypaX
+    cValue: TypeB: 函数b
+    aValue: TypeC: 函数c
+输出：
+    bValue: TypeA
+    paramY: TypeY: 函数b
+    paramZ: TypeZ: 函数c
+#2 函数b
+输入：
+    paramY: TypeY
+输出：
+    cValue: TypeB
+#3 函数c
+输入：
+    paramZ: TypeZ
+输出：
+    aValue: TypeC
+```
+
+<aside><img src="./images/tdd/function.png" height="560"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 更复杂情况的分析
+
+<img src="./images/tdd/detailed-tasking-2.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 思维工具
+
+- 纸 & 笔
+- 思维导图
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 执行任务
+
+<img src="./images/tdd/plan.png" height="560">
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Refactoring 重构
+<!-- .slide: class="color--none" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Design Patterns 《设计模式》
+
+### 在设计前期使用设计模式常常导致过度工程，
+
+### 而设计模式为重构提供了目标，一次一小步修改代码，减少风险。
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Refactoring to Patterns 《重构与模式》
+
+### 在不改变软件可观察行为的前提下改善其内部结构。
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Bad Smells 代码坏味道
+1.  Duplicated Code（代码重复）
+2.  Long method（方法过长）
+3.  Large Class（类提供的功能太多）
+4.  Long Parameter List（过长参数列）
+5.  Divergent Change （发散式变化）
+6.  Shotgun Surgery （霰弹式修改）
+7.  Feature Envy （夸夸其谈一般性）
+8.  Data Clumps （数据泥团）
+9.  Primitive Obsession（基本类型偏执）
+10.  Switch Statement（分支语句）
+11.  Parallel Inheritance Hierarchies （平行继承体系）
+12.  Lazy Class（冗赘类）
+13.  Speculative Generality （夸夸其谈未来性）
+14.  Temporary Field （令人迷惑的暂时字段）
+15.  Message Chain （过度耦合的消息链）
+16.  Middle Man （中间人）
+17.  Inappropriate Intimacy （狎昵关系）
+18.  Alternative Classes with Different
+19.  Incomplete Library Class （不完美的类库）
+20.  Data Class（纯粹的数据类）
+21.  Refused Bequest （被遗弃的馈赠）
+22.  Comments（需要太多注释）
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 当我们发现了代码坏味道…
+
+<https://www.jetbrains.com/help/webstorm/specific-javascript-refactorings.html>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 刻意练习：无招胜有招
+
+仅仅掌握思想是没用的，
+
+学会所有的 “坏味道” 和对应的重构手法，
+
+勤学苦练，
+
+然后你才可能有信心面对各种复杂情况。
+
+> 先学会所有的招式，然后忘记……
+
+<aside><img src="./images/tdd/refactoring.png" height="450"></aside>
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+# 单元测试
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 一个测试工程师
+
+- 一个测试工程师走进一家酒吧，要了一杯啤酒 
+- 一个测试工程师走进一家酒吧，要了一杯咖啡 
+- 一个测试工程师走进一家酒吧，要了 0.7 杯啤酒 
+- 一个测试工程师走进一家酒吧，要了 - 1 杯啤酒 
+- 一个测试工程师走进一家酒吧，要了 2^32 杯啤酒 
+- 一个测试工程师走进一家酒吧，要了一杯洗脚水 
+- 一个测试工程师走进一家酒吧，要了一杯蜥蜴 
+- 一个测试工程师走进一家酒吧，要了一份 asdfQwer@24dg!&*(@ 
+- 一个测试工程师走进一家酒吧，什么也没要 
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 一个测试工程师 · 未完待续
+- 一个测试工程师走进一家酒吧，又走出去又从窗户进来又从后门出去从下水道钻进来 
+- 一个测试工程师走进一家酒吧，又走出去又进来又出去又进来又出去，最后在外面把老板打了一顿 
+- 一个测试工程师走进一 
+- 一个测试工程师走进一家酒吧，要了一杯烫烫烫的锟斤拷
+- 一个测试工程师走进一家酒吧，要了 NaN 杯 Null 
+- 一个测试工程师冲进一家酒吧，要了 500T 啤酒咖啡洗脚水野猫狼牙棒奶茶 
+- 一个测试工程师走进一家酒吧，然后把酒吧拆了 
+- 一个测试工程师化装成老板走进一家酒吧，要了 500 杯啤酒并且不付钱 一万个测试工程师在酒吧门外呼啸而过 
+- 一个测试工程师走进一家酒吧，要了一杯啤酒';DROP TABLE 酒吧
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 大结局
+
+测试工程师们满意地离开了酒吧。
+
+然后一名顾客点了一份炒饭，酒吧炸了。
+
+<aside class="notes"><p>没找对真实的客户需求在哪里？
+因为每次发布，你都要投入人力来进行手工测试；
+因为没有测试，你倾向于不敢随意重构，这又导致代码逐渐腐化，复杂度使得你的开发速度降低。</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🧐 怎么写测试？
+<!-- .slide: class="color--none" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 测试三部曲
+
+- **Given**
+- **When** 
+- **Then** 
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 测试的种类
+
+- 正向测试
+- 反向测试
+- 异常测试
+
+<aside class="notes"><p>反向测试：有经验的话，空字符串、（走进酒吧）ref <a href="https://www.zhihu.com/question/20034686/answer/52063718">计算机领域有哪些经典的典故或笑话？ - 知乎</a></p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Jest
+
+- Fast
+- Opinionated
+- Watch Mode
+- Snapshot Testing
+
+<aside><img src="./images/tdd/jest.png" height="560"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Matchers
+
+<figure class="code"><pre>
+```js
+expect(1+1).not.toBe(3)
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 异步测试
+
+<figure class="code"><pre>
+```js
+navigator.geolocation.getCurrentPostion() # chrome API 异步获取当前位置
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Callback
+<figure class="code"><pre>
+```js
+it('the data is peanut butter', done => {
+  function callback(data) {
+    expect(data).toBe('peanut butter');
+    done();
+  }
+
+  fetchData(callback);
+});
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Promise
+<figure class="code"><pre>
+```js
+it('the data is peanut butter', () => {
+  expect.assertions(1);
+  return fetchData().then(data => {
+    expect(data).toBe('peanut butter');
+  });
+});
+```
+
+<figure class="code"><pre>
+```js
+expect(Promise.resolve('lemon')).resolves.toBe('lemon')
+
+expect(Promise.reject(new Error('octopus'))).rejects.toThrow('octopus')
+```</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Async/Await
+<figure class="code"><pre>
+```js
+test('the data is peanut butter', async () => {
+  expect.assertions(1);
+  const data = await fetchData();
+  expect(data).toBe('peanut butter');
+});
+```
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Fake/Stub/Mock/Spy
+
+<img src="./images/tdd/isolate.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Mocking
+
+* Database
+* Network requests
+* access to Files
+* any External system
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Mock
+<figure class="code"><pre>
+```js
+import SoundPlayer from './sound-player';
+const mockPlaySoundFile = jest.fn();
+jest.mock('./sound-player', () => {
+  return jest.fn().mockImplementation(() => {
+    return {playSoundFile: mockPlaySoundFile};
+  });
+});
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Stub
+<figure class="code"><pre>
+```js
+const mockFn = jest.fn();
+mockFn();
+expect(mockFn).toHaveBeenCalled();
+
+// With a mock implementation:
+const returnsTrue = jest.fn(() => true);
+console.log(returnsTrue()); // true;
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Spy
+Spy packages without affecting the functions code
+<figure class="code"><pre>
+```js
+const video = require('./video');
+
+it('plays video', () => {
+  const spy = jest.spyOn(video, 'play');
+  const isPlaying = video.play();
+
+  expect(spy).toHaveBeenCalled();
+  expect(isPlaying).toBe(true);
+})
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Mock global stuff
+
+<figure class="code"><pre>
+```js
+window.matchMedia = jest.fn().mockImplementation(query => {
+  return {
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+  };
+});
+```
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 组件化与 UI 测试
+<!-- .slide: class="color--none" -->
+
+<aside class="notes"><p>在组件化出现之前，我们不谈 UI 的单元测试，哪怕是对于 UI 页面的测试来说都是一件非常困难的事情。</p>
+<p>其实组件化并不全是为了复用，很多情况下也恰恰是为了分治，从而我们可以分组件对 UI 页面进行开发，然后分别对其进行单元测试。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" data-background="./images/tdd/ui.png" -->
+<aside class="notes"><p>React 已经让 UI 测试变得容易很多，React 组件都可以被简化为这样一个表达式，即 UI = f(data)，这个纯函数返回的只是一个描述 UI 组件应该是什么样子的虚拟 DOM，本质上就是一个树形的数据结构。</p>
+<p>给这个纯函数输入一些应用程序的状态，就会得到相应的 UI 描述的输出，这个过程不会去直接操作实际的 UI 元素，也不会产生所谓的副作用。</p>
+<p>按理来说按照纯函数这样的思路，React 组件的测试应该很简单的说。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# UI 组件树
+<img src="./images/tdd/component-tree.png" height="600">
+
+<aside class="notes"><p>对于（渲染出 UI 的）组件树进行测试依然存在一个问题，从下图中可以看出，越处于上层的组件，其复杂度必然会随之提高。
+     对于最底层的子组件来说，我们可以很容易得将其进行渲染并测试其逻辑的正确与否，但对于较上层的父组件来说，通常来说就需要对其所包含的所有子组件都进行预先渲染，甚至于最上面的组件需要渲染出整个 UI 页面的真实 DOM 节点才能对其进行测试，这显然是不可取的。</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Enzyme 与 React 测试
+
+<img src="./images/tdd/enzyme-api.png" height="560">
+
+<aside class="notes"><p>浅渲染（Shallow Rendering）解决了这个问题，也就是说在我们针对某个上层组件进行测试时，可以不用渲染它的子组件，所以就不用再担心子组件的表现和行为，这样就可以只对特定组件的逻辑及其渲染输出进行测试了。</p>
+<p>Facebook 官方提供了 react-addons-test-utils 可以让我们使用浅渲染这个特性，用于测试虚拟 DOM 对象，即 React.Component 的实例。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# `shallow(node[, options]) => ShallowWrapper`
+<figure class="code"><pre>
+```javascript
+import { shallow } from 'enzyme'
+
+describe('Enzyme Shallow', () => {
+  it('App should have title equals to Todos', () => {
+    let app = shallow(<App />)
+    expect(app.find('h1').text()).to.equal('Todos')
+  })
+}
+```</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# `mount(node[, options]) => ReactWrapper`
+<figure class="code"><pre>
+```javascript
+import { render } from 'enzyme'
+
+describe('Enzyme Render', () => {
+  it('Todo item should not have todo-done class', () => {
+    let app = render(<App />)
+    expect(app.find('.todo-done').length).to.equal(0)
+  })
+})
+```</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# `render(node[, options]) => CheerioWrapper`
+<figure class="code"><pre>
+```javascript
+import { mount } from 'enzyme'
+
+describe('Enzyme Mount', () => {
+  it('should delete Todo when click button', () => {
+    let app = mount(<App />)
+    let todoLength = app.find('li').length
+    app.find('button.delete').at(0).simulate('click')
+    expect(app.find('li').length).to.equal(todoLength - 1)
+  })
+})
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# `find()` 方法与选择器
+<figure class="code"><pre>
+```javascript
+/* CSS Selector */
+wrapper.find('.foo') //class syntax
+wrapper.find('input') //tag syntax
+wrapper.find('#foo') //id syntax
+wrapper.find('[htmlFor="foo"]') //prop syntax
+
+/* Component Constructor */
+wrapper.find(MyComponent)
+MyComponent.displayName = 'MyComponent'
+wrapper.find('MyComponent')
+
+/* Object Property Selector */
+const wrapper = mount(<div>
+  <span foo={3} bar={false} title="baz" />
+</div>)
+
+wrapper.find({ foo: 3 })
+wrapper.find({ bar: false })
+wrapper.find({ title: 'baz'})
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 测试组件的交互行为
+<figure class="code"><pre>
+```javascript
+it('simulates click events', () => {
+  const onButtonClick = jest.fn()
+  const wrapper = shallow(
+    <Foo onButtonClick={onButtonClick} />
+  )
+  wrapper.find('button').simulate('click')
+  expect(onButtonClick).toHaveBeenCalled()
+})
+```</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 如何测试 React Native？
+<figure class="code"><pre>
+```js
+const mockComponent = (type) => {
+  return React.createClass({
+    displayName: type,
+    propTypes: {
+      children: React.PropTypes.node
+    },
+    render() {
+      return <div {...this.props}>{this.props.children}</div>
+    }
+  })
+}
+
+RN.View = mockComponent("View")
+RN.Text = mockComponent("Text")
+RN.Image = mockComponent("Image")
+```
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🤓 总结
+<!-- .slide: class="color--none" -->
+
+## Tasking 任务分解：完全穷尽、各自独立
+## Testing 单元测试：Given When Then
+## Refactoring：代码坏味道与重构手法
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 📚 推荐书籍
+
+* 《重构：改善既有代码的设计》
+* 《Refactoring to Patterns 重构与模式》
+* 《设计模式 : 可复用面向对象软件的基础》
+* 《Clean Code 代码整洁之道》
+* 《测试驱动开发》
+* 《计算机程序的构造和解释》
+</script></section></section>
+    <section id="end" class="color--midnight">
+      <div class="grid-wrapper">
+        <div class="content">
+          <h1>Thank You!</h1>
+          <br>
+          <h3>祝大家都能写出没有 Bug 的代码！</h3>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <a href="https://blog.jimmylv.info"><i class="fa fa-at"></i><span>JimmyLv</span></a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script src="./lib/js/head.min.js"></script>
+<script src="./js/reveal.js"></script>
+<script>
+  function extend() {
+    var target = {}
+    for (var i = 0; i < arguments.length; i++) {
+      var source = arguments[i]
+      for (var key in source) {
+        if (source.hasOwnProperty(key)) {
+          target[key] = source[key]
+        }
+      }
+    }
+    return target
+  }
+
+  // Optional libraries used to extend on reveal.js
+  var deps = [
+    { src: './lib/js/classList.js', condition: function () { return !document.body.classList } },
+    {
+      src: './plugin/markdown/marked.js',
+      condition: function () { return !!document.querySelector('[data-markdown]') },
+    },
+    {
+      src: './plugin/markdown/markdown.js',
+      condition: function () { return !!document.querySelector('[data-markdown]') },
+    },
+    {
+      src: './plugin/highlight/highlight.js',
+      async: true,
+      callback: function () { hljs.initHighlightingOnLoad() },
+    },
+    { src: './plugin/zoom-js/zoom.js', async: true },
+    { src: './plugin/notes/notes.js', async: true },
+    { src: './plugin/math/math.js', async: true },
+  ]
+
+  // default options to init reveal.js
+  var defaultOptions = {
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    transition: 'default', // none/fade/slide/convex/concave/zoom
+    dependencies: deps,
+  }
+
+  // options from URL query string
+  var queryOptions = Reveal.getQueryHash() || {}
+
+  var options = {
+  {}}
+
+  options = extend(defaultOptions, options, queryOptions)
+</script>
+
+
+<script>
+  Reveal.initialize(options)
+</script>
+<script src="js/reveal-init.js"></script>
+
+</body>
+</html>

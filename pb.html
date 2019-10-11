@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>Page Builder 技术架构实践</title>
+  <link rel="stylesheet" href="lib/css/font-awesome.css">
+  <link rel="stylesheet" href="./css/reveal.css">
+  <link rel="stylesheet" href="./css/theme/myplanet.css">
+  <link rel="stylesheet" href="./css/presentation.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/highlight-github.css">
+  <!--<link rel="stylesheet" href="./css/highlight/zenburn.css">-->
+  <link rel="stylesheet" href="./css/print/paper.css"
+        type="text/css" media="print">
+
+
+  <link rel="shortcut icon" href="https://raw.githubusercontent.com/JimmyLv/jimmylv.github.io/master/favicon.ico">
+
+  <meta property="og:url" content="https://gapple.github.io/presentation-better-analytics/" />
+  <meta property="og:title" content="Page Builder 技术架构实践" />
+  <meta property="og:image" content="https://gapple.github.io/presentation-better-analytics/images/facebook-card.png" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@gappleca">
+  <meta name="twitter:image" content="https://gapple.github.io/presentation-better-analytics/images/twitter-card.png">
+  <script src="js/reveal-print.js"></script>
+</head>
+<body>
+<div class="reveal pattern--baozun">
+  <div class="slides commands">
+    <section>
+      <section class="title" id="title">
+        <div class="grid-wrapper">
+          <div class="header">
+            <div class="logo logo--full"><span class="visually-hidden">JimmyLv</span></div>
+          </div>
+          <div class="content">
+            <h1>Page Builder 技术架构实践<br /> <small>How to create a Visual Page Builder?</small></h1>
+            <div class="description">
+              宝尊电商 BAOZUN eCommerce Inc. ©2018
+            </div>
+          </div>
+          <div class="credit">
+            <hr>
+            <div class="label">Presented By</div>
+            <div class="name">Jimmy Lv</div>
+          </div>
+          <a class="presentation-url" href="https://escher.casaba.tech">https://escher.casaba.tech</a>
+        </div>
+      </section>
+      <section class="about" id="about">
+        <img src="./images/pb/shanghai.JPG" alt="JimmyLv">
+        <div class="grid-wrapper">
+          <div class="content">
+            <aside>
+              <h2>Hey, I'm JimmyLv!</h2>
+              <hr>
+              <ul class="projects">
+                <li><a href="https://blog.jimmylv.info">想做产品，却误入程序世界爱上设计的摄影师。</a></li>
+              </ul>
+              <hr>
+              <ul class="accounts">
+                <li class="user"><a href="https://blog.jimmylv.info"><i class="fa fa-vcard-o"></i>
+                  <span>吕靖</span></a></li>
+                <li class="zhihu"><a href="https://www.zhihu.com/people/JimmyLv"><i class="fa fa-search"></i>
+                  <span>吕立青</span></a></li>
+                <li class="github"><a href="https://www.github.com/JimmyLv"><i class="fa fa-github"></i>
+                  <span>JimmyLv</span></a></li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+      <section class="title" id="title">
+      <div class="grid-wrapper">
+        <div class="header">
+          <div class="logo logo--full"><span class="visually-hidden">JimmyLv</span></div>
+        </div>
+        <div class="content">
+          <h1>Page Builder 技术架构实践<br /> <small>How to create a Visual Page Builder?</small></h1>
+          <div class="description">
+            宝尊电商 BAOZUN eCommerce Inc. ©2018
+          </div>
+        </div>
+        <div class="credit">
+          <hr>
+          <div class="label">Presented By</div>
+          <div class="name">Jimmy Lv</div>
+        </div>
+        <a class="presentation-url" href="https://escher.casaba.tech">https://escher.casaba.tech</a>
+      </div>
+    </section>
+    </section>
+    <section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+
+# 📢 Agenda
+
+<br>
+## 1️⃣ 初体验
+## 2️⃣ 组件方案
+## 3️⃣ 数据方案
+### 彩蛋…
+
+<aside><img src="./images/tdd/agenda.jpg" height="450"></aside>
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none header--none" data-background="./images/pb/CASABA-SEA介绍.png" -->
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none header--none" data-background="./images/pb/cs-intro1.png" -->
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none header--none" data-background="./images/pb/cs-intro2.png" -->
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# ✨ 店铺装修案例
+
+- https://cuiyajuan.casaba.com.tw/
+- https://shop-96000651.casaba.com.hk/
+- https://shop-88000007.casaba.com.tw/
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# Page Builder 建站器的交互
+
+[https://admin.casaba.com.tw](https://admin.casaba.com.tw/mall/+admin.casaba.com.tw/lite/stencil/marketplace)
+
+[or](https://davinci.casaba.tech)
+
+[else](http://admin-dev.casaba-sea.baozun.work/lite/stencil/page_builder)
+
+<aside><img src="./images/pb/G點擊選中模塊交互.png" height="650"></aside>
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<img src="./images/pb/D新增組件-側邊欄交互.png" alt="">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<img src="./images/pb/G點擊選中模塊交互.png" alt="">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+# 💐 官宣！💐
+# Page Builder！
+# 从 Casaba SEA 独立出来啦！
+
+
+二期、三期、四期的规划
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 💻 Page Builder 技术架构实现
+
+## 1. 开放：平台、模板和组件，协作怎么玩？
+## 2. 组件方案：Atomic Design（设计原则）
+## 3. 数据方案：GraphQL（动态 & 静态）
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+
+# Q1: 我要怎么使用 Page Builder 呢❓
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# A: 使用 Page Builder 的方式
+
+## 1. 独立Service
+## 2. Fork & PR
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+https://git.baozun.com/casaba-sea/cs-page-builder
+
+* 自动化流水线
+* 代码规范Linter
+* <strong>单元测试</strong>和E2E测试
+* 语义化版本自动发布
+* CHANGELOG.md
+* Graphiql即文档
+<img src="./images/pb/fed-convention.jpg" alt="">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+
+# Q2: 如何开发一个新的 Page Builder 组件呢❓
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none header--none" data-background="./images/pb/instagram-atomic.png" -->
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" data-background="./images/pb/periodic-table.png" -->
+
+# 元素周期表
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" data-background="./images/pb/html-periodic-table.png" -->
+
+# 元件周期表
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# ⚛ “原子化设计”（Atomic Design）
+
+<img src="./images/pb/chemical-equation.png" alt="">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# Atom 原子
+<img src="./images/pb/atoms-form-elements.png" alt="">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Molecule 分子
+<img src="./images/pb/molecule-search-form.png" alt="">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Organism 组织
+<img src="./images/pb/organism-header.png" alt="">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+#  Organisms - Headers
+<img src="./images/pb/organisms-headers.png" alt="">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+#  Organisms - Products
+<img src="./images/pb/organisms-products.png" alt="">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Template 模板
+<img src="./images/pb/template.png" alt="">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Page 页面
+<img src="./images/pb/page.png" alt="">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="header--none color--none" -->
+
+<br>
+<img src="./images/pb/showcase.JPG" alt="">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" data-background="./images/pb/atomic-design-abstract-concrete.png" -->
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none header--none" data-background="./images/pb/design-system.png" -->
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" -->
+
+# Q3: 组件是如何请求静态数据的呢❓
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none header--none" -->
+
+<img src="./images/pb/page-json.png">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🏃 数据更新操作 undo/redo
+
+<img src="./images/pb/update-data.png">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🚀 JSON Schema Form
+<img src="./images/pb/G點擊選中模塊交互.png" alt="">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+
+# Q3: 组件是如何请求动态数据的呢❓
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none header--none" data-background="./images/pb/siri.png" -->
+
+<br>
+<br>
+<br>
+<br>
+
+# ✨ GraphQL ✨
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+# “数据感知型组件”
+
+<img src="./images/pb/data-components.png" alt="">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none header--none" -->
+<br>
+<br>
+<br>
+
+# GraphQL Fragments
+
+<img src="./images/pb/fragments.jpg">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none header--none" -->
+
+<br>
+<br>
+<br>
+<img src="./images/pb/graphql-fragments.png">
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# GraphQL 带来的想象力
+
+## 1. 按需查询
+## 2. 自由组合
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" -->
+
+# 思考题：组件化的目的❓
+
+## “复用 vs 自治”
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# ⚛ 维度越低，其复用价值越大；
+# 🌏 维度越高，其自治价值越大。
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--midnight" -->
+
+# ONE MORE THING...
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+
+# Q4: 独立后的 Page Builder 该叫什么名字呢❓
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# Page Builder 的名字候选：
+
+## ☑️ 1. 达芬奇 Da Vinci
+## ☑️ 2. 爱舍尔 Escher
+## ☑️ 3. 莫内 Monet
+## ......
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 感谢UED，
+# 感谢Unex，
+# 感谢CASABA，
+# 感谢……
+</script></section>
+    <!-- color--light color--midnight color--ice color--radiant -->
+    <section id="end" class="color--midnight">
+      <div class="grid-wrapper">
+        <div class="content">
+          <h1>Thanks for <span style="color: #F25930 !important;">Your</span> Attention!</h1>
+          <br>
+          <h4>在学习的同时帮助他人学习；</h4>
+          <h4>在成长的同时帮助他人成长。</h4>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <a href="https://blog.jimmylv.info"><i class="fa fa-at"></i><span>JimmyLv</span></a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script src="./lib/js/head.min.js"></script>
+<script src="./js/reveal.js"></script>
+<script>
+  function extend() {
+    var target = {}
+    for (var i = 0; i < arguments.length; i++) {
+      var source = arguments[i]
+      for (var key in source) {
+        if (source.hasOwnProperty(key)) {
+          target[key] = source[key]
+        }
+      }
+    }
+    return target
+  }
+
+  // Optional libraries used to extend on reveal.js
+  var deps = [
+    { src: './lib/js/classList.js', condition: function () { return !document.body.classList } },
+    {
+      src: './plugin/markdown/marked.js',
+      condition: function () { return !!document.querySelector('[data-markdown]') },
+    },
+    {
+      src: './plugin/markdown/markdown.js',
+      condition: function () { return !!document.querySelector('[data-markdown]') },
+    },
+    {
+      src: './plugin/highlight/highlight.js',
+      async: true,
+      callback: function () { hljs.initHighlightingOnLoad() },
+    },
+    { src: './plugin/zoom-js/zoom.js', async: true },
+    { src: './plugin/notes/notes.js', async: true },
+    { src: './plugin/math/math.js', async: true },
+  ]
+
+  // default options to init reveal.js
+  var defaultOptions = {
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    transition: 'default', // none/fade/slide/convex/concave/zoom
+    dependencies: deps,
+  }
+
+  // options from URL query string
+  var queryOptions = Reveal.getQueryHash() || {}
+
+  var options = {
+  {}}
+
+  options = extend(defaultOptions, options, queryOptions)
+</script>
+
+
+<script>
+  Reveal.initialize(options)
+</script>
+<script src="js/reveal-init.js"></script>
+
+</body>
+</html>
