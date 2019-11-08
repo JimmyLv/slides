@@ -480,10 +480,10 @@ html {
   .reveal .slides section:not([class*='color--']) {
     background-color: #FFFFFF; }
   .reveal .slides section:not([class*='color--']) .logo {
-    background-image: url("../../images/baozun-ice.png");
+    background-image: url("../../images/nd_logo.png");
   }
   .reveal .slides section.color--none .logo {
-    background-image: url("../../images/baozun.png");
+    background-image: url("../../images/nd_logo.png");
   }
 
 .reveal .slides section.stack {
@@ -503,7 +503,7 @@ html {
     grid-area: header; }
   .reveal .slides section .logo {
     /*background-image: url("../../lib/myplanet/logo/ice/mark-outline.svg");*/
-    background-image: url("../../images/baozun-ice.png");
+    background-image: url("../../images/nd_logo.png");
     background-repeat: no-repeat;
     background-size: auto 100%;
     display: inline-block;
@@ -568,7 +568,7 @@ html {
     width: 6vmin; }
   .reveal .slides section.title .logo--full {
     /*background-image: url("../../lib/myplanet/logo/white/logo-outline.svg");*/
-    background-image: url("../../images/baozun.png");
+    background-image: url("../../images/nd_logo.png");
     width: 24vmin; }
   .reveal .slides section.title .content {
     align-self: center;

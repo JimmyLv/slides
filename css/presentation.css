@@ -200,3 +200,15 @@ aside {
   text-align: center;
   font-size: 150%;
 }
+
+#end .content img {
+  width: 250px;
+  height: auto;
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: initial;
+}
+
+#you {
+  color: #F25930 !important;
+}
