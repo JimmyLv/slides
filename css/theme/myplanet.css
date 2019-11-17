@@ -313,21 +313,55 @@ html {
   }
 
 .reveal.pattern--baozun {
-  background-image: url("../../lib/myplanet/patterns/night-sky/pattern.svg"); }
-  .reveal.pattern--baozun .slides section.intro {
-    background-color: #FAFAFA; }
-    .reveal.pattern--baozun .slides section.intro .logo {
-      background-image: url("../../lib/myplanet/patterns/night-sky/logo.svg"); }
-  .reveal.pattern--baozun .slides section.title {
-    /*background-color: #872E27;*/
-    background-image: linear-gradient(131deg, #00C3B7 9%, #00ADEA 100%);
-  }
-  .reveal.pattern--baozun .progress {
-    color: #0091D5; }
-  .reveal.pattern--baozun .controls {
-    /*color: #872E27; */
-    color: #0091D5;
-  }
+  background-image: url("../../lib/myplanet/patterns/night-sky/pattern.svg");
+}
+
+.reveal.pattern--baozun .slides section.intro {
+  background-color: #FAFAFA;
+}
+
+.reveal.pattern--baozun .slides section.intro .logo {
+  background-image: url("../../lib/myplanet/patterns/night-sky/logo.svg");
+}
+
+.reveal.pattern--baozun .slides section.title {
+  /*background-color: #872E27;*/
+  background-image: linear-gradient(131deg, #00C3B7 9%, #00ADEA 100%);
+}
+
+.reveal.pattern--baozun .progress {
+  color: #0091D5;
+}
+
+.reveal.pattern--baozun .controls {
+  /*color: #872E27; */
+  color: #0091D5;
+}
+
+.reveal.pattern--extreme-programming {
+  background-image: url("../../lib/myplanet/patterns/extreme-programming/pattern.svg");
+}
+
+.reveal.pattern--extreme-programming .slides section.intro {
+  background-color: #FFEDE9;
+}
+
+.reveal.pattern--extreme-programming .slides section.intro .logo {
+  background-image: url("../../lib/myplanet/patterns/extreme-programming/logo.svg");
+}
+
+.reveal.pattern--extreme-programming .slides section.title {
+  /*background-color: #872E27;*/
+  background-image: linear-gradient(131deg, #872E27 1%, #EE6F43 100%);
+}
+
+.reveal.pattern--extreme-programming .progress {
+  color: #EE6F43;
+}
+
+.reveal.pattern--extreme-programming .controls {
+  color: #EE6F43;
+}
 
 .reveal.pattern--night-sky {
   background-image: url("../../lib/myplanet/patterns/night-sky/pattern.svg"); }

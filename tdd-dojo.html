@@ -1,0 +1,2260 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>极限编程：测试驱动开发（TDD）</title>
+  <link rel="stylesheet" href="lib/css/font-awesome.css">
+  <link rel="stylesheet" href="./css/reveal.css">
+  <link rel="stylesheet" href="./css/theme/myplanet.css">
+  <link rel="stylesheet" href="./css/presentation.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/highlight-github.css">
+  <!--<link rel="stylesheet" href="./css/highlight/zenburn.css">-->
+  <link rel="stylesheet" href="./css/print/paper.css"
+        type="text/css" media="print">
+
+
+  <link rel="shortcut icon" href="https://raw.githubusercontent.com/JimmyLv/jimmylv.github.io/master/favicon.ico">
+
+  <meta property="og:url" content="https://blog.jimmylv.info/" />
+  <meta property="og:title" content="极限编程：测试驱动开发（TDD）" />
+  <meta property="og:image" content="https://blog.jimmylv.info/public/img/gavatar.jpg" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@jimmy_jinglv">
+  <meta name="twitter:image" content="https://gapple.github.io/presentation-better-analytics/images/twitter-card.png">
+  <script src="js/reveal-print.js"></script>
+  <style type="text/css">
+    .reveal .slides section.title .logo--full,
+    .reveal .slides section:not([class*='color--']) .logo,
+    .reveal .slides section.color--none .logo {
+      height: 10vmin;
+      background-image: url(../../images/xp_logo.png);
+    }
+    /*.reveal .slides section.color--none div.logo {
+      background-image: url(../../images/xp_logo_black.png);
+    }*/
+  </style>
+</head>
+<body>
+<div class="reveal pattern--extreme-programming">
+  <div class="slides commands">
+    <section>
+      <section class="title" id="title">
+        <div class="grid-wrapper">
+          <div class="header">
+            <div class="logo logo--full"><span class="visually-hidden">JimmyLv</span></div>
+          </div>
+          <div class="content">
+            <h1>极限编程：测试驱动开发（TDD）<br /> <small>eXtreme Programming with Test-Driven Development</small></h1>
+            <div class="description">
+              🧗‍♂️中国极限编程实践者社群. ©2019
+            </div>
+          </div>
+          <div class="credit">
+            <hr>
+            <div class="label">Presented By</div>
+            <div class="name">Jimmy Lv</div>
+          </div>
+          <a class="presentation-url" href="http://extremeprogramming.cn/">http://extremeprogramming.cn/</a>
+        </div>
+      </section>
+      <section class="about" id="about">
+        <img src="./images/myphoto.jpg" alt="JimmyLv">
+        <div class="grid-wrapper">
+          <div class="content">
+            <aside>
+              <h2>Hey, I'm JimmyLv!</h2>
+              <hr>
+              <ul class="projects">
+                <li><a href="https://blog.jimmylv.info">想做产品，却误入程序世界爱上设计的摄影师。</a></li>
+              </ul>
+              <hr>
+              <ul class="accounts">
+                <li class="user"><a href="https://blog.jimmylv.info"><i class="fa fa-vcard-o"></i>
+                  <span>吕靖</span></a></li>
+                <li class="zhihu"><a href="https://www.zhihu.com/people/JimmyLv"><i class="fa fa-search"></i>
+                  <span>吕立青</span></a></li>
+                <li class="github"><a href="https://www.github.com/JimmyLv"><i class="fa fa-github"></i>
+                  <span>JimmyLv</span></a></li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+      <section class="about" id="slogan">
+        <div class="grid-wrapper">
+          <div class="content">
+            <h1>在学习的同时帮助他人学习;</h1>
+            <h1>在成长的同时帮助他人成长。</h1>
+          </div>
+        </div>
+      </section>
+    </section>
+    <section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+
+# 📢 Agenda
+
+## 1️⃣ 「极客练功房」
+## 2️⃣ 副本一：FizzBuzz
+## 3️⃣ 副本二：MarsRover
+## 4️⃣ *副本三：ShoppingCart
+
+<aside><img src="./images/tdd/agenda.jpg" height="450"></aside>
+
+<aside class="notes"><p>我们从三方面</p>
+<h2 id="1-tdd-">1️⃣ TDD 入门</h2>
+<ul>
+<li>🧐 什么是TDD？</li>
+<li>为什么要 TDD？</li>
+<li>演示 - FizzBuzz</li>
+</ul>
+<h2 id="2-tdd-">2️⃣ 如何实践 TDD：</h2>
+<ul>
+<li>TDD Cycle 红-绿-重构</li>
+<li>Tasking 任务分解与设计</li>
+<li>UnitTest 基础 Mock/Stub、异步测试</li>
+<li>Refactoring 坏味道 &amp; 重构手法</li>
+</ul>
+<h2 id="3-tdd-with-javascript-">3️⃣ TDD with JavaScript：</h2>
+<ul>
+<li>Cypress 由外至内的TDD</li>
+<li>组件化与 UI 测试</li>
+<li>数据流测试</li>
+<li>视觉化测试</li>
+</ul>
+</aside></script></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 「极客练功房」是什么？
+
+「极客」就是「极限编程实践者」的简称。
+
+「极客练功房」就是「极限编程实践者的练功房」、「极限编程实践的练功房」。
+
+<br/>
+<br/>
+
+## 2 个主旨：
+
+* 认同“基本功”对做好软件的决定性价值
+* 采用“刻意练习”方法提升基本功
+
+<aside class="notes"><p>在我们这个社区的上下文里，「极客」就是「极限编程实践者」的简称。</p>
+<p>所以「极客练功房」就是「极限编程实践者的练功房」、「极限编程实践的练功房」。</p>
+<p>也就是这样的一个练功房：</p>
+<ol>
+<li>以极限编程的“核心实践”为基础；</li>
+<li>提炼针对软件开发四大“基本能力”*的刻意练习方法；</li>
+<li><p>面向对极限编程感兴趣、有意愿打扎实基本功的“极限编程实践者”。</p>
+</li>
+<li><p>软件开发四大基本能力：需求管理；项目管理；配置管理；质量保障。</p>
+</li>
+</ol>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 刻意练习三要素
+
+### 1️⃣ ⼤大量量重复的练习 
+### 2️⃣ 在学习区开展练习 
+### 3️⃣ 获得及时有效的反馈
+
+<aside><img src="./images/tdd/practice.jpg" height="560"></aside>
+
+<aside class="notes"><p>（告诉学生应该怎么做）
+     （做给学生看）
+     （让学生练习）
+     （老师在旁边观察）
+     （鼓励做的好的，纠正做的不好的地方）
+总结一下就是：你练，你也会</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 「极客练功房」的亮点
+
+###  1️⃣ 基于极限编程的核心实践，直指个人和团队基本能力
+###  2️⃣ 全程采用刻意练习方法，不讲废话，只练真功夫
+###  3️⃣ 社群资深教练现场点拨，打通关窍
+###  4️⃣ 温馨网友聚会，面基志同道合的小伙伴
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🤝 从互相认识开始……
+<!-- .slide: class="color--none"-->
+
+<aside class="notes"><p>我们来玩一个小游戏Game: “逢7️⃣” 游戏规则</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# Game: “逢7️⃣” 游戏规则
+
+- 大家一起围成一个圈；
+- 从 1 或任意数开始报数，100以内；
+- 但逢数字包含 7 或者 7 的倍数，则不报数，要喊“过”；
+- 如果犯规则要接受 “惩罚”。
+
+<aside class="notes"><p>其实这个不是惩罚，而是一个介绍自己的“机会”，“三句话介绍自己”，注意是三句话哦！当然，我们有所谓的“惩罚”，就会有奖励，留到最后一位同学</p>
+<p>再看一下新花样：开头是一样的，但是，数到逢 7 的数字后，要倒回去数! </p>
+<p>比如，原来是顺时针数的，轮到甲是 7，他敲一下桌子，照理坐在他左边的乙应该接下来数 8，现在要变成逆时针，由坐在他右边的丙数 8! 这样转来转去，保证大家转不了三次方向就迷糊啦!</p>
+<p>果然不出所料，大家都是非常非常非常聪明的，幸好我的游戏库里面还有其他游戏（如果最后分不出胜负）那就直接开始玩另一个游戏，007；</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 技巧：先减去 70 再说
+
+- 77、84、91、98 能被 7 整除，
+- 正如 7、14、21、28 能被 7 整除一样。
+
+<aside class="notes"><p>介绍一个小技巧，从此再也不用在饭桌上玩游戏输掉了，</p>
+<p>对于大于 70 的数，先减去  70  再说。也就是说，77、84、91、98 能被 7 整除，正如 7、14、21、28 能被 7 整除一样。</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🧐 **什么是TDD？**
+<!-- .slide: class="color--none"-->
+
+<aside class="notes"><p>那么，在大家相互认识之后，我们再来认识一下 TDD，不过我们先不讲
+我们让底下的同学来回答（尽量引导到 Task-frist, Test-first, Test-Driven Design</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# TDD：测试驱动开发
+
+TDD 是一种不同于传统软件开发流程的**新型**开发方法。
+
+它要求**测试先行**，在编写某个功能的代码之前先编写测试代码，
+
+然后只编写使测试通过的功能代码，通过测试来**推动**整个开发的进行。
+
+<aside><img src="./images/tdd/Test-Driven-Development-Cycle.jpg" height="466"></aside>
+
+<aside class="notes"><p>这有助于编写简洁可用和高质量的代码，并加速开发过程。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 敏捷开发： 更快地交付有价值的可工作软件
+
+<img src="./images/tdd/agile-cycle.png" height="666">
+
+<aside class="notes"><p>如何更快地交付有价值的可工作的软件？有这样一个指标来度量这个「更快」，那就是 lead time，它度量的是一个 idea 从提出被验证，到最终上生产环境面对用户的时间。显然，这个时间越短，软件获得反馈的时间就越短，对价值的验证就越快发生。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 极限编程
+## Extreme Programming
+
+<aside><img src="./images/tdd/XP.png" height="666"></aside>
+
+<aside class="notes"><p>1996年，在各种敏捷方法中，极限编程最为重视软件开发技术工程实践。极限编程是唯一将开发技术实践提到核心地位、并围绕开发技术实践构建起完整软件交付流程的敏捷方法论。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 核心点：缩短反馈周期
+<aside><img src="./images/tdd/xp-feedback.png" height="700"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 精益思想：Define-Build-Measure-Learn
+
+<img src="./images/tdd/LEAN.png" height="800">
+<!-- <aside><img src="./images/tdd/LEAN.png" height="666"></aside> -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 传统编码方式
+
+- 需求分析，想不清楚细节，管他呢，先开始写
+- 发现需求细节不明确，去跟业务人员确认
+- 确认好几次终于写完所有逻辑
+- 运行起来测试一下，果然不工作，调试
+- 调试好久终于工作了...
+- 转测试，QA 测出 bug，debug， 打补丁
+- 终于，代码可以工作了...
+- 一看代码烂的像坨屎，不敢动，动了还得手工测试，还得让 QA 测试，还得加班...
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" data-background="./images/tdd/sayno2panda.gif" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# TDD 编码方式
+
+- 先**分解任务**，分离关注点
+- 列 Example，用**实例化**需求，澄清需求细节
+- 写测试，只关注需求，程序的**输入输出**，不关心中间过程
+- 写实现，不考虑别的需求，用**最简单的方式**满足当前这个小需求即可
+- **重构**，用手法消除代码里的**坏味道**
+- 写完，手动测试一下，基本没什么问题，有问题补个用例，修复
+- 转测试，小问题，补用例，修复
+- 代码整洁且用例齐全，**信心满满**地提交。
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" data-background="./images/tdd/panda.png" -->
+
+<aside class="notes"><p>这里我玩了一个小小的梗，省略号… vs 句号。</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🧐 如何做 TDD？
+<!-- .slide: class="color--none" data-background="./images/tdd/coffee.jpeg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# TDD 循环：
+# 红-绿-重构
+
+<aside><img src="./images/tdd/tdd-cycle.jpg" height="500"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 五个步骤
+
+1. 快速新增**一个测试**
+2. 运行所有的测试，发现新增的测试不能通过
+3. 做一些**小小的改动**，尽快地让测试程序可运行
+4. 运行所有的测试，并且全部通过
+5. **重构**代码，以消除重复代码，优化设计结构
+
+<aside><img src="./images/tdd/tdd-cycle.jpg" height="500"></aside>
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🚀 代码时间！
+<!-- .slide: class="color--none" data-background="./images/dog.gif" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 副本1️⃣. FizzBuzz 数字游戏
+## 目的：认识和理解 TDD 流程
+
+- 主线： 3* -> Fizz; 5* -> Buzz; 15* -> FizzBuzz
+- _支线： “逢7” 的机器版，想跟 AI 玩游戏吗？_
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 问题描述 - “FizzBuzz 数字游戏”
+
+想象你是个小学 5 年级的学生，现在还有 5 分钟就要下课，数学老师带全班同学玩一个小游戏。
+
+他会用手指挨个指向每个学生，被指着的学生就要依次报数：
+
+**第一个被指着的学生说“1”，**
+
+**第二个被指着的学生说“2”，**
+
+**以此类推。**
+
+呃……并不完全“以此类推”……如果一个学生被指着的时候，应该报的数是 3 的倍数，那么他就不能说这个数，而是要说“Fizz”。
+
+同样的道理，5 的倍数也不能被说出来，而是要说“Buzz”。
+
+于是游戏开始了，老师的手指向一个个同学，他们开心地喊着：“1！”，“2！”，“Fizz！”，“4！”，“Buzz！”……
+
+终于，老师指向了你，时间仿佛静止，你的嘴发干，你的掌心在出汗，你仔细计算，然后终于喊出“Fizz！”。运气不错，你躲过了一劫，游戏继续进行。
+
+为了避免在自己这儿失败，我们想了一个“作弊”的法子：
+
+最好能提前把整个列表打印出来，这样就知道到我这儿的时候该说什么了。
+
+全班有 33 个同学，游戏可能会玩 2 到 3 轮。
+
+现在，赶紧去写代码吧！  
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 开始前的准备
+
+<figure class="code"><pre>
+```bash
+$ git clone https://github.com/jimmylv/dojo-scaffold-js.git
+$ cd dojo-scaffold-js
+$ git checkout fcc-tdd #注意切分支
+$ yarn install
+$ yarn test #运行测试
+
+------
+
+ PASS  src/App.test.js
+ PASS  src/dojo/fizzBuzz.test.js
+
+Test Suites: 2 passed, 2 total
+Tests:       6 passed, 6 total
+Snapshots:   0 total
+Time:        2.681s
+Ran all test suites.
+
+Watch Usage: Press w to show more.
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 演示 - FizzBuzz
+
+写一个程序打印1到100这些数字。
+
+但是遇到数字为3的倍数的时候，打印“Fizz”替代数字，
+
+遇到数字为 5 的倍数时，用“Buzz”代替，
+
+既是3的倍数又是5的倍数打印“FizzBuzz”。
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 画图（纸和笔）
+
+<img src="./images/tdd/fizzBuzz.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 实例化需求
+
+number: Int | result: String
+--|--
+1|'1'
+3|'Fizz'
+5|'Buzz'
+15|'FizzBuzz'
+
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 任务 1：当数字不能被3或5整除时，返回数字的字符串
+## `1 => '1'`
+
+<figure class="code"><pre>
+```bash
+input:
+number: 1
+
+output:
+string: '1'
+```</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 任务 2：当数字能被3整除时，返回Fizz字符串
+## `3 => 'Fizz'`
+
+<figure class="code"><pre>
+```bash
+input:
+number: 3
+
+output:
+string: 'Fizz'
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 任务 3：当数字能被5整除时，返回Buzz字符串
+## `5 => 'Buzz'`
+
+<figure class="code"><pre>
+```bash
+input:
+number: 5
+
+output:
+string: 'Buzz'
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 任务 4：当数字能被3或5整除时，返回FizzBuzz字符串
+## `15 => 'FizzBuzz'`
+
+<figure class="code"><pre>
+```bash
+input:
+number: 15
+
+output:
+string: 'FizzBuzz'
+```
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🛠 TDD 的纪律
+
+### 1. 没有失败的测试就不能写任何功能代码 
+### 2. 每次只允许写⼀个刚好失败的测试 
+### 3. 只允许写「刚好让失败的测试通过」的功能代码
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# **Test-Driven Development** 的含义
+
+- Task-Driven Development
+- Test First Development
+- Test-Driven Design
+
+<aside class="notes"><p>测试覆盖下的设计改善</p>
+</aside></script></section></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🐒 第二阶段：需求变更
+  
+**当你开发完毕，这时候 PM 来了，他告诉你：需求变了。**
+
+1、如果一个数能被 3 整除，或者包含数字 3，那么这个数就是“Fizz”；
+
+2、如果一个数能被 5 整除，或者包含数字 5，那么这个数就是“Buzz”。
+
+3、如果既是3的倍数又是5的倍数，或包含数字 3又包含数字 5，那么这个数就是“FizzBuzz”。
+
+4、你该怎么办？
+
+![Image](data:image/gif;base64,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)  
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🐒 第三阶段：需求变更
+
+1. 要求显示在 HTML 上
+2. 要求用户输入再显示 Fizz/Buzz
+3. 要求用户点击 Counter 再显示Fizz/Buzz
+</script></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🧐 为什么要 TDD？
+<!-- .slide: class="color--none"-->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# TDD的核心：缩短反馈周期
+<aside><img src="./images/tdd/xp-feedback.png" height="700"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 效率
+
+## - 提前确认需求，减少浪费
+## - 小步快走，缩短反馈周期
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 重构
+
+## - 演进式设计，持续改进
+## - 面向接口编程，合理架构
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 质量
+
+## - 高测试覆盖率，充分有效
+## - 自动回归测试，持续集成
+
+<aside class="notes"><p>缺陷发现越早，修复成本越低</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+
+# 自动化测试 Showcase
+
+[/Users/Jing/Documents/120 ⛳ - 管理与教练技术/Trainer培训师/TDD/自动化测试showcase.mov](hook://file/cSfWs4rDz?p=VHJhaW5lciDln7norq3luIgvVERE&n=.%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95showcase.mov.icloud)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# TDD 不是什么
+
+### 关于 TDD 的边界讨论中，最常见的三个东西便是：需求、设计、代码质量。
+
+* TDD 不能为你做设计 - 如果你本来不会设计、没做设计
+* TDD 不能为你明确需求 - 如果你本来就不确定业务需求
+* TDD 不能为你提高代码质量 - 如果你本来就不知道怎么写整洁代码
+</script></section></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🧐 如何学习TDD?
+
++ Tasking 任务分解与设计
++ UnitTest 基础与测试要点
++ Refactoring 坏味道与重构手法
+
+<aside><img src="./images/tdd/tdd-cycle.png" height="560"></aside>
+</script></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Tasking 任务分解与设计
+<!-- .slide: class="color--none" -->
+
+<aside class="notes"><p>经常有同学说编程没有思路
+其实是不会做任务分解，任务分解可以帮助我们把一个大的问题分解为一个个小的问题，然后逐个击破，这是非常重要的工程化思维方式。</p>
+<h1 id="-tasking-">🧐 <strong>什么是 Tasking？</strong></h1>
+<!-- .slide: class="color--none"--></aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🧐 **你的梦想是什么？**
+<!-- .slide: class="color--none"-->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none"-->
+<div style="display: flex; justify-content: space-around">
+  <img src="./images/tasking/qq.png" height="600">
+  <img src="./images/tasking/dream.png" height="600">
+</div>
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🧐 如何移民火星？
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" data-background="./images/tasking/Musk.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" data-background="./images/tasking/Musk.jpg" -->
+
+# 伊隆·马斯克 (Elon Musk)
+# [让人类成为一个多星球物种](https://m.igetget.com/share/audio/aid/Nmg5jc4UOshNKsTc8oK2)
+
+<aside class="notes"><p>2016</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 把 100 万人送上火星生活
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 💰 100 亿美金
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 💰 100 亿美金 x 100 万人 = 美国500年 GDP
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🏡 50 万美金
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🏡 100 亿美金 = 50 万美金 x [2 万倍](http://tech.qq.com/a/20180327/022113.htm)
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 2 万倍 = 20 x 10 x 100
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 20
+<!-- .slide: class="color--none" data-background="./images/tasking/BFR.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" data-background="./images/tasking/Starship.jpg" -->
+
+<aside class="notes"><p>2019</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 10
+<!-- .slide: class="color--none" data-background="./images/tasking/falcon-9.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" data-background="./images/tasking/rocket-capability-poster.png" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 100
+<!-- .slide: class="color--none" data-background="./images/tasking/recycle.png" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" data-background="./images/tasking/recycle.gif" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 把 100 万人送上火星生活
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 伊隆·马斯克 创办的公司/组织：
+
+- ~~PayPal 网络支付~~
+- SpeaceX 太空火箭 Starship
+- [Tesla](https://www.tesla.cn/blog/secret-tesla-motors-master-plan-just-between-you-and-me) 电动汽车 Roadster
+- SolarCity 太阳能
+- Hyperloop 地下高铁 Boring Company
+- Starlink 太空互联网
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 2002 SpaceX
+<!-- .slide: class="color--none" data-background="./images/tasking/SpaceX.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 2003 Tesla
+<!-- .slide: class="color--none" data-background="./images/tasking/Roadster.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 2006 SolarCity
+<!-- .slide: class="color--none" data-background="./images/tasking/SolarCity.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 2014 Hyperloop
+<!-- .slide: class="color--none" data-background="./images/tasking/Hyperloop.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 2015 Starlink
+<!-- .slide: class="color--none" data-background="./images/tasking/Starlink.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🏡 2 万倍 = 20 x 10 x 100
+<!-- .slide: class="color--none" data-background="./images/tdd/mars.jpg" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" data-background="./images/tasking/Musk-Mars.jpg" -->
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# ✨ Tasking 入门
+<!-- .slide: class="color--none" -->
+
+<aside class="notes"><p>经常有同学说编程没有思路
+其实是不会做任务分解，任务分解可以帮助我们把一个大的问题分解为一个个小的问题，然后逐个击破，这是非常重要的工程化思维方式。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 把大象放进冰箱需要几步？
+
+<img src="./images/tdd/tasking.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 把长颈鹿放进冰箱需要几步？
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 森林里开大会谁没去？
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 一个人过鳄鱼湖为什么没有被鳄鱼吃掉？
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+
+# ✨ Tasking 核心点
+
+## 1. 各自独立
+## 2. 完全穷尽
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Tasking - 任务描述
+
+<img src="./images/tdd/tasking-1.png" height="560">
+
+<aside class="notes"><p>没有思路首先是因为我们对问题描述得不够清晰。很多人在思考问题的时候是用蛮力的，想不出来就使劲想，憋着不干别的，等着大脑里蹦出一个答案。这种做法是非常不可取的，尽管我们大脑的潜意识具有仅次于阿尔法Go的思考力，你也不能这么虐待它，好钢要用在刀刃上。
+正如上图所示，很多人思考任务也就是一句话的任务描述，而一句话根本是不够清晰的，我们需要一些思维框架让问题更加清晰。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 清晰的思维是第一步，不能看到就不能思考</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 抽象：输入 & 输出
+
+<img src="./images/tdd/tasking-2.png" height="560">
+
+<aside class="notes"><p>计算机程序可以简单的抽象为输入，处理和输出。所谓的处理，是处理过程的简称，也就是代码，它既可以是左边的结构化的代码块，也可以是右边封装好的函数。无论哪一种，都有输入输出。
+      这个思维框架就是很好的思维框架，既然程序是要考虑输入和输出的，而我们的任务就是写程序，那么自然也要考虑输入输出</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 使用 输入/输出 描述 Task
+
+<img src="./images/tdd/tasking-3.png" height="560">
+
+<aside class="notes"><p>回到之前的图，把输入输出加上，就变成了上面这个样子。
+      每个输入输出都有名字和数据结构。
+      就输入来说，如果是代码块，那么就是另一块代码创建某个变量，如果是函数，那可能就是参数。
+      就输出来说，如果是代码块，那么就是创建出来给别的代码块使用的变量，如果是函数，那可能就是返回值。
+      而不管哪一个，都是有名字和数据结构的。
+      往往输入的数据结构可以从前面的输出中找到，所以可以省略掉就不想了。</p>
+<pre><code>  如果是面向对象的话，输出的name就不太重要了，重点是数据结构
+  的类名。
+</code></pre></aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 一个典型的示例
+<figure class="code"><pre>
+```bash
+#1 函数a
+输入：
+    paramX: TypeX
+输出：
+    aValue: TypeA
+
+#2 函数b
+输入：
+    paramY: TypeY
+输出：
+    bValue: TypeB
+
+#3 函数c
+输入：
+    paramZ: TypeZ
+输出：
+    cValue: TypeC
+```
+
+<aside><img src="./images/tdd/function.png" height="560"></aside>
+
+<aside class="notes"><p>唯一需要强调的就是穷尽了，我们思考问题的时候，如果不把输入输出穷尽，我们也是无法想清楚问题的。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 更详细的 Tasking - 5W1H
+
+<img src="./images/tdd/detailed-tasking.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 更详细的 Task
+
+<img src="./images/tdd/detailed-tasking-1.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<figure class="code"><pre>
+```bash
+#1 函数a
+输入：
+    paramX: TypeX
+    bValue: TypeB <- 函数b
+    cValue: TypeC <- 函数c
+输出：
+    aValue: TypeA
+    paramY: TypeY -> 函数b
+    paramZ: TypeZ -> 函数c
+
+#2 函数b
+输入：
+    paramY: TypeY
+输出：
+    bValue: TypeB
+
+#3 函数c
+输入：
+    paramZ: TypeZ
+输出：
+    cValue: TypeC
+```
+
+<aside><img src="./images/tdd/function.png" height="560"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 更复杂情况的分析
+
+<img src="./images/tdd/detailed-tasking-2.png" height="560">
+
+<aside class="notes"><p>如果是简单的情况还可以如上图所示去写，但当我们面对更复杂的情况的时候，我们要借助图形来表达。
+然后只需要在每一对输入输出上标上编号，对每一对输入输出进行分析就好了。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 思维工具
+
+- 纸 & 笔
+- 列大纲
+- 思维导图
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" data-background="./images/tasking/mars-rover.jpg" -->
+
+# MarsRover 火星漫游者
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 副本2️⃣. MarsRover 火星漫游者
+## 目的：TDD Cycle 各环节的进阶学习
+
+- 主线1：任务分解 - UserStory 转化为 TestCase
+- 主线2：重构，坏味道 & IDE 具体操作手法
+- _支线：更多坏味道，专注于重构 + 快捷键练习_
+- _支线2：多命令下的性能优化 LLRRM -> M_
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 问题描述 - “MarsRover 火星漫游者”
+
+假想你在火星探索团队中负责软件开发。现在你要给登陆火星的探索小车编写控制程序，根据地球发送的控制指令来控制火星车的行动。
+
+火星车收到的指令分为四类：
+
+- 探索区域信息：告知火星车，整片区域的长度（X）和宽度（Y）有多大；
+- 初始化信息：火星车的降落地点（x, y）和朝向（N, S, E, W）信息；
+- 移动指令：火星车可以前进（M）；
+- 转向指令：火星车可以左转90度（L）或右转90度（R）。
+
+由于地球和火星之间的距离很远，指令必须批量发送，火星车执行完整批指令之后，再回报自己所在的位置坐标和朝向。
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 示例
+
+<figure class="code"><pre>
+```bash
+Input File (example):
+5 5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM
+
+Expected Output:
+1 3 N
+5 1 E
+```
+
+白板地址： [https://witeboard.com/5f5d61e0-696c-11e8-a4b5-851b25c65348](https://witeboard.com/5f5d61e0-696c-11e8-a4b5-851b25c65348)
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🚀 动手时间！
+<!-- .slide: class="color--none" data-background="./images/banana.gif" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 计算火星车位置
+<br>
+- read file 读取文件
+- format inputs 格式化输入
+
+<br>
+
+- calculate position by one command  通过一个指令计算位置
+- calculate position by multiple commands 通过多个指令计算位置
+- calculate orientation 计算方向
+
+<br>
+
+- check is out of boundary 检查是否超出边界
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# calculate rovers position, 
+## filePath => positionResult
+
+<figure class="code"><pre>
+```bash
+input:
+filePath
+
+output:
+1 3 N
+5 1 E
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# read file,
+## filePath => fileContent
+
+<figure class="code"><pre>
+```bash
+input:
+filePath
+
+output:
+fileContent
+5 5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM
+```
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🚀 动手时间！
+<!-- .slide: class="color--none" data-background="./images/dog.gif" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# format inputs, 
+## fileContent => boundary, position, commands
+
+<figure class="code"><pre>
+```bash
+input:
+fileContent
+5 5
+1 2 N
+LMLMLMLMM
+
+output:
+(5, 5)
+(1, 2, N)
+['L', 'M', 'L', 'M', 'L', 'M', 'L', 'M', 'M']
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# calculate position by command, 
+## currentPosition, command => position
+
+<figure class="code"><pre>
+```bash
+input:
+currentPosition: 1, 1, N / 5, 5, N
+command: L / M
+
+output:
+position: 1, 1, W  / 5, 5, N        
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# calculate position by commands
+## currentPosition, commands => position
+
+<figure class="code"><pre>
+```bash
+input:
+currentPosition: 1, 1, N
+commands: LM
+
+output:
+position: 0, 1, W
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# calculate orientation
+## currentOrientation, orientationCommand => orientation
+
+<figure class="code"><pre>
+```bash
+input:
+N, L
+
+output:
+W
+
+Orientations:
+N -> W -> S -> E
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# isOutOfBoundary
+## position, boundary => result(True/False)
+
+<figure class="code"><pre>
+```bash
+input:
+position: 1, 1, N
+
+output:
+result: false
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🎉 副本通关 - MarsRover 火星漫游者
+
+- 可以通过一串指令操控火星漫游者号可以在平原上移动
+- 火星漫游者号能够接收(L/R/M)构成的字符串指令，并返回执x行后的位置和方向
+- 火星漫游者号移动过程中不能越过平原的边界
+- 火星漫游者号应该忽略错误的指令
+
+
+<figure class="code"><pre>
+```bash
+Input File:
+5 5
+1 2 N
+LMLMLMLMM
+3 3 E
+MMRMMRMRRM
+
+Expected Output:
+1 3 N
+5 1 E
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 执行 Task
+
+<img src="./images/tdd/plan.png" height="560">
+
+<aside class="notes"><p>画完的任务总是要执行的，在执行之前，要估算一下这个任务要多长时间。实际执行之后再进行对比，不管估多了还是估少了，差距过长就需要分析原因，执行之后进行对比，以发现自己的可改进之处。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 对 Task 进行估算和回顾
+
+- spike时间
+- 写完测试的时间
+- 写完实现的时间
+- 测试跑通的时间
+
+<aside class="notes"><p>事后要进行追溯，写出非计划时间表</p>
+<p>spike分三种：
+  相对于团队属于前沿知识的spike——sr.的责任，或者second tier pre sr.
+  团队内，别人知道，你不知道的知识——询问机制，带人，节省搜索时间
+  大概知道，具体API用法不熟——专项训练</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 精益思想：Define-Build-Measure-Learn
+
+<img src="./images/tdd/LEAN.png" height="660">
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# ✨ Tasking 进阶
+<!-- .slide: class="color--none" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 一个抽象的盒子
+
+<img src="./images/tdd/function.png" height="560">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 盒子内与盒子外，
+# 关注接口还是关注实现
+
+<aside><img src="./images/tdd/tasking-box-1.png" height="560"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 跳到外面的外面，
+# 才能发现场景
+
+<aside><img src="./images/tdd/tasking-box-2.png" height="560"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 任务分解，
+# 也是可以抽象的
+
+<aside><img src="./images/tdd/tasking-example.png" height="560"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# Tasking 核心点
+
+- 完全穷尽
+- 各自独立
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Refactoring 重构
+<!-- .slide: class="color--none" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Design Patterns 《设计模式》
+
+### 在设计前期使用设计模式常常导致过度工程，
+
+### 而设计模式为重构提供了目标，一次一小步修改代码，减少风险。
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Refactoring to Patterns 《重构与模式》
+
+### 在不改变软件可观察行为的前提下改善其内部结构。
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Bad Smells 代码坏味道
+1.  Duplicated Code（代码重复）
+2.  Long method（方法过长）
+3.  Large Class（类提供的功能太多）
+4.  Long Parameter List（过长参数列）
+5.  Divergent Change （发散式变化）
+6.  Shotgun Surgery （霰弹式修改）
+7.  Feature Envy （夸夸其谈一般性）
+8.  Data Clumps （数据泥团）
+9.  Primitive Obsession（基本类型偏执）
+10.  Switch Statement（分支语句）
+11.  Parallel Inheritance Hierarchies （平行继承体系）
+12.  Lazy Class（冗赘类）
+13.  Speculative Generality （夸夸其谈未来性）
+14.  Temporary Field （令人迷惑的暂时字段）
+15.  Message Chain （过度耦合的消息链）
+16.  Middle Man （中间人）
+17.  Inappropriate Intimacy （狎昵关系）
+18.  Alternative Classes with Different
+19.  Incomplete Library Class （不完美的类库）
+20.  Data Class（纯粹的数据类）
+21.  Refused Bequest （被遗弃的馈赠）
+22.  Comments（需要太多注释）
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 当我们发现了代码坏味道…
+
+## Refactoring! Refactoring! Refactoring!
+
+<https://www.jetbrains.com/help/webstorm/specific-javascript-refactorings.html>
+<https://refactoring.guru/refactoring/techniques>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 重构16字心法
+
+旧的不变，新的创建；
+一步切换，旧的再见。
+
+<aside><img src="./images/tdd/refactoring.png" height="450"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 刻意练习：无招胜有招
+
+仅仅掌握思想是没用的，
+
+学会所有的 “坏味道” 和对应的重构手法，
+
+勤学苦练，
+
+然后你才可能有信心面对各种复杂情况。
+
+> 先学会所有的招式，然后忘记……
+
+<aside><img src="./images/tdd/refactoring.png" height="450"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 刻意练习三要素
+### 1. ⼤大量量重复的练习 
+### 2. 在学习区开展练习 
+### 3. 获得及时有效的反馈
+
+<aside><img src="./images/tdd/practice.jpg" height="560"></aside>
+
+<aside class="notes"><p>（告诉学生应该怎么做）
+     （做给学生看）
+     （让学生练习）
+     （老师在旁边观察）
+     （鼓励做的好的，纠正做的不好的地方）</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+# Testing 单元测试
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 一个测试工程师
+
+- 一个测试工程师走进一家酒吧，要了一杯啤酒 
+- 一个测试工程师走进一家酒吧，要了一杯咖啡 
+- 一个测试工程师走进一家酒吧，要了 0.7 杯啤酒 
+- 一个测试工程师走进一家酒吧，要了 - 1 杯啤酒 
+- 一个测试工程师走进一家酒吧，要了 2^32 杯啤酒 
+- 一个测试工程师走进一家酒吧，要了一杯洗脚水 
+- 一个测试工程师走进一家酒吧，要了一杯蜥蜴 
+- 一个测试工程师走进一家酒吧，要了一份 asdfQwer@24dg!&*(@ 
+- 一个测试工程师走进一家酒吧，什么也没要 
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 一个测试工程师 · 未完待续
+- 一个测试工程师走进一家酒吧，又走出去又从窗户进来又从后门出去从下水道钻进来 
+- 一个测试工程师走进一家酒吧，又走出去又进来又出去又进来又出去，最后在外面把老板打了一顿 
+- 一个测试工程师走进一 
+- 一个测试工程师走进一家酒吧，要了一杯烫烫烫的锟斤拷
+- 一个测试工程师走进一家酒吧，要了 NaN 杯 Null 
+- 一个测试工程师冲进一家酒吧，要了 500T 啤酒咖啡洗脚水野猫狼牙棒奶茶 
+- 一个测试工程师走进一家酒吧，然后把酒吧拆了 
+- 一个测试工程师化装成老板走进一家酒吧，要了 500 杯啤酒并且不付钱 一万个测试工程师在酒吧门外呼啸而过 
+- 一个测试工程师走进一家酒吧，要了一杯啤酒';DROP TABLE 酒吧
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 大结局
+
+测试工程师们满意地离开了酒吧。
+
+然后一名顾客点了一份炒饭，酒吧炸了。
+
+<aside class="notes"><p>没找对真实的客户需求在哪里？
+因为每次发布，你都要投入人力来进行手工测试；
+因为没有测试，你倾向于不敢随意重构，这又导致代码逐渐腐化，复杂度使得你的开发速度降低。</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🧐 怎么写测试？
+<!-- .slide: class="color--none" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 测试三部曲
+
+- **Given**
+- **When** 
+- **Then** 
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 测试的种类
+
+- 正向测试
+- 反向测试
+- 异常测试
+
+<aside class="notes"><p>反向测试：有经验的话，空字符串、（走进酒吧）ref <a href="https://www.zhihu.com/question/20034686/answer/52063718">计算机领域有哪些经典的典故或笑话？ - 知乎</a></p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Jest
+
+- Fast
+- Opinionated
+- Watch Mode
+- Snapshot Testing
+
+<aside><img src="./images/tdd/jest.png" height="560"></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Matchers
+
+<figure class="code"><pre>
+```js
+expect(1+1).not.toBe(3)
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 异步测试
+
+<figure class="code"><pre>
+```js
+navigator.geolocation.getCurrentPostion() # chrome API 异步获取当前位置
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Callback
+<figure class="code"><pre>
+```js
+it('the data is peanut butter', done => {
+  function callback(data) {
+    expect(data).toBe('peanut butter');
+    done();
+  }
+
+  fetchData(callback);
+});
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Promise
+<figure class="code"><pre>
+```js
+it('the data is peanut butter', () => {
+  expect.assertions(1);
+  return fetchData().then(data => {
+    expect(data).toBe('peanut butter');
+  });
+});
+```
+
+<figure class="code"><pre>
+```js
+expect(Promise.resolve('lemon')).resolves.toBe('lemon')
+
+expect(Promise.reject(new Error('octopus'))).rejects.toThrow('octopus')
+```</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Async/Await
+<figure class="code"><pre>
+```js
+test('the data is peanut butter', async () => {
+  expect.assertions(1);
+  const data = await fetchData();
+  expect(data).toBe('peanut butter');
+});
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Exception
+<figure class="code"><pre>
+```js
+test('throws on octopus', () => {
+  function drinkOctopus() {
+    drinkFlavor('octopus');
+  }
+
+  expect(drinkOctopus).toThrowError('yuck');
+  expect(drinkOctopus).toThrowError(new Error('yuck, octopus flavor'));
+});
+```
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Fake/Stub/Mock/Spy
+
+<img src="./images/tdd/isolate.png">
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Mocking
+
+* Database
+* Network requests
+* access to Files
+* any External system
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Mock
+<figure class="code"><pre>
+```js
+import SoundPlayer from './sound-player';
+const mockPlaySoundFile = jest.fn();
+jest.mock('./sound-player', () => {
+  return jest.fn().mockImplementation(() => {
+    return {playSoundFile: mockPlaySoundFile};
+  });
+});
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Stub
+<figure class="code"><pre>
+```js
+const mockFn = jest.fn();
+mockFn();
+expect(mockFn).toHaveBeenCalled();
+
+// With a mock implementation:
+const returnsTrue = jest.fn(() => true);
+console.log(returnsTrue()); // true;
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Spy
+Spy packages without affecting the functions code
+<figure class="code"><pre>
+```js
+const video = require('./video');
+
+it('plays video', () => {
+  const spy = jest.spyOn(video, 'play');
+  const isPlaying = video.play();
+
+  expect(spy).toHaveBeenCalled();
+  expect(isPlaying).toBe(true);
+})
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Mock global stuff
+
+<figure class="code"><pre>
+```js
+window.matchMedia = jest.fn().mockImplementation(query => {
+  return {
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+  };
+});
+```
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 组件化与 UI 测试
+<!-- .slide: class="color--none" -->
+
+<aside class="notes"><p>在组件化出现之前，我们不谈 UI 的单元测试，哪怕是对于 UI 页面的测试来说都是一件非常困难的事情。</p>
+<p>其实组件化并不全是为了复用，很多情况下也恰恰是为了分治，从而我们可以分组件对 UI 页面进行开发，然后分别对其进行单元测试。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" data-background="./images/tdd/ui.png" -->
+<aside class="notes"><p>React 已经让 UI 测试变得容易很多，React 组件都可以被简化为这样一个表达式，即 UI = f(data)，这个纯函数返回的只是一个描述 UI 组件应该是什么样子的虚拟 DOM，本质上就是一个树形的数据结构。</p>
+<p>给这个纯函数输入一些应用程序的状态，就会得到相应的 UI 描述的输出，这个过程不会去直接操作实际的 UI 元素，也不会产生所谓的副作用。</p>
+<p>按理来说按照纯函数这样的思路，React 组件的测试应该很简单的说。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# UI 组件树
+<img src="./images/tdd/component-tree.png" height="600">
+
+<aside class="notes"><p>对于（渲染出 UI 的）组件树进行测试依然存在一个问题，从下图中可以看出，越处于上层的组件，其复杂度必然会随之提高。
+     对于最底层的子组件来说，我们可以很容易得将其进行渲染并测试其逻辑的正确与否，但对于较上层的父组件来说，通常来说就需要对其所包含的所有子组件都进行预先渲染，甚至于最上面的组件需要渲染出整个 UI 页面的真实 DOM 节点才能对其进行测试，这显然是不可取的。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# Enzyme 与 React 测试
+
+<img src="./images/tdd/enzyme-api.png" height="560">
+
+<aside class="notes"><p>浅渲染（Shallow Rendering）解决了这个问题，也就是说在我们针对某个上层组件进行测试时，可以不用渲染它的子组件，所以就不用再担心子组件的表现和行为，这样就可以只对特定组件的逻辑及其渲染输出进行测试了。</p>
+<p>Facebook 官方提供了 react-addons-test-utils 可以让我们使用浅渲染这个特性，用于测试虚拟 DOM 对象，即 React.Component 的实例。</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# `shallow(node[, options]) => ShallowWrapper`
+<figure class="code"><pre>
+```javascript
+import { shallow } from 'enzyme'
+
+describe('Enzyme Shallow', () => {
+  it('App should have title equals to Todos', () => {
+    let app = shallow(<App />)
+    expect(app.find('h1').text()).to.equal('Todos')
+  })
+}
+```</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# `mount(node[, options]) => ReactWrapper`
+<figure class="code"><pre>
+```javascript
+import { render } from 'enzyme'
+
+describe('Enzyme Render', () => {
+  it('Todo item should not have todo-done class', () => {
+    let app = render(<App />)
+    expect(app.find('.todo-done').length).to.equal(0)
+  })
+})
+```</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# `render(node[, options]) => CheerioWrapper`
+<figure class="code"><pre>
+```javascript
+import { mount } from 'enzyme'
+
+describe('Enzyme Mount', () => {
+  it('should delete Todo when click button', () => {
+    let app = mount(<App />)
+    let todoLength = app.find('li').length
+    app.find('button.delete').at(0).simulate('click')
+    expect(app.find('li').length).to.equal(todoLength - 1)
+  })
+})
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# `find()` 方法与选择器
+<figure class="code"><pre>
+```javascript
+/* CSS Selector */
+wrapper.find('.foo') //class syntax
+wrapper.find('input') //tag syntax
+wrapper.find('#foo') //id syntax
+wrapper.find('[htmlFor="foo"]') //prop syntax
+
+/* Component Constructor */
+wrapper.find(MyComponent)
+MyComponent.displayName = 'MyComponent'
+wrapper.find('MyComponent')
+
+/* Object Property Selector */
+const wrapper = mount(<div>
+  <span foo={3} bar={false} title="baz" />
+</div>)
+
+wrapper.find({ foo: 3 })
+wrapper.find({ bar: false })
+wrapper.find({ title: 'baz'})
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 测试组件的交互行为
+<figure class="code"><pre>
+```javascript
+it('simulates click events', () => {
+  const onButtonClick = jest.fn()
+  const wrapper = shallow(
+    <Foo onButtonClick={onButtonClick} />
+  )
+  wrapper.find('button').simulate('click')
+  expect(onButtonClick).toHaveBeenCalled()
+})
+```</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 如何测试 React Native？
+<figure class="code"><pre>
+```js
+const mockComponent = (type) => {
+  return React.createClass({
+    displayName: type,
+    propTypes: {
+      children: React.PropTypes.node
+    },
+    render() {
+      return <div {...this.props}>{this.props.children}</div>
+    }
+  })
+}
+
+RN.View = mockComponent("View")
+RN.Text = mockComponent("Text")
+RN.Image = mockComponent("Image")
+```
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🤓 总结：快速响应变化，缩短反馈周期
+
+* 缺少**可重构性**的软件，不可能快速响应变化。
+* 没有高覆盖率、快速运行的**单元测试**，重构就不可能落地。
+* **测试驱动开发**是获得高质量单元测试集的唯一有效方法。
+* 建立在充分覆盖且运行快速的自动化测试基础上的**持续集成**是迭代式开发的必要条件。
+
+<aside class="notes"><p>缺陷发现越早，修复成本越低</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🤓 总结：武林秘籍
+
+## Tasking 任务分解：完全穷尽、各自独立
+## Testing 单元测试：Given When Then
+## Refactoring 重构：旧的不变，新的创建；一步切换，旧的再见。
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 📚 推荐书籍
+
+* 《重构2：改善既有代码的设计》
+* 《Clean Code 代码整洁之道》
+* 《Test-Driven Development 测试驱动开发》
+* 《Refactoring to Patterns 重构与模式》
+* 《设计模式 : 可复用面向对象软件的基础》
+* 《计算机程序的构造和解释》
+</script></section></section>
+    <!-- color--light color--midnight color--ice color--radiant -->
+    <section id="end" class="color--midnight">
+      <div class="grid-wrapper">
+        <div class="content">
+          <h1>Thanks for <span id="you">Your</span> Attention!</h1>
+          <div class="end-qrcode">
+            <a href="https://jinshuju.net/f/p5IRo5">
+              <img src="./images/qrcode/fcc-tdd_512.png" alt="feedback" width="512" height="512">
+            </a>
+            <img src="./images/qrcode/wechat_512.png" alt="wechat" width="512" height="512">
+          </div>
+          <br>
+          <h4>在学习的同时帮助他人学习；</h4>
+          <h4>在成长的同时帮助他人成长。</h4>
+          <br>
+          <br>
+          <a href="https://blog.jimmylv.info"><i class="fa fa-at"></i><span>JimmyLv</span></a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script src="./lib/js/head.min.js"></script>
+<script src="./js/reveal.js"></script>
+<script>
+  function extend() {
+    var target = {}
+    for (var i = 0; i < arguments.length; i++) {
+      var source = arguments[i]
+      for (var key in source) {
+        if (source.hasOwnProperty(key)) {
+          target[key] = source[key]
+        }
+      }
+    }
+    return target
+  }
+
+  // Optional libraries used to extend on reveal.js
+  var deps = [
+    { src: './lib/js/classList.js', condition: function () { return !document.body.classList } },
+    {
+      src: './plugin/markdown/marked.js',
+      condition: function () { return !!document.querySelector('[data-markdown]') },
+    },
+    {
+      src: './plugin/markdown/markdown.js',
+      condition: function () { return !!document.querySelector('[data-markdown]') },
+    },
+    {
+      src: './plugin/highlight/highlight.js',
+      async: true,
+      callback: function () { hljs.initHighlightingOnLoad() },
+    },
+    { src: './plugin/zoom-js/zoom.js', async: true },
+    { src: './plugin/notes/notes.js', async: true },
+    { src: './plugin/math/math.js', async: true },
+  ]
+
+  // default options to init reveal.js
+  var defaultOptions = {
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    transition: 'default', // none/fade/slide/convex/concave/zoom
+    dependencies: deps,
+  }
+
+  // options from URL query string
+  var queryOptions = Reveal.getQueryHash() || {}
+
+  // var options = {}
+
+  options = extend(defaultOptions, options, queryOptions)
+</script>
+
+
+<script>
+  Reveal.initialize(options)
+</script>
+<script src="js/reveal-init.js"></script>
+
+</body>
+</html>

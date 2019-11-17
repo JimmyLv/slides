@@ -204,9 +204,15 @@ aside {
 #end .content img {
   width: 250px;
   height: auto;
-  margin: 0 auto;
+  margin: 0 10px;
   max-width: 100%;
   max-height: initial;
+}
+
+#end .end-qrcode {
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 #you {
