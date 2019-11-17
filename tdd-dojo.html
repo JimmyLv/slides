@@ -31,7 +31,7 @@
     .reveal .slides section:not([class*='color--']) .logo,
     .reveal .slides section.color--none .logo {
       height: 10vmin;
-      background-image: url(../../images/xp_logo.png);
+      background-image: url(./images/xp_logo.png);
     }
     /*.reveal .slides section.color--none div.logo {
       background-image: url(../../images/xp_logo_black.png);
@@ -514,7 +514,6 @@ number: Int | result: String
 3|'Fizz'
 5|'Buzz'
 15|'FizzBuzz'
-
 </script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
     <div class="header">
       <div class="logo"></div>
@@ -581,8 +580,19 @@ number: 15
 
 output:
 string: 'FizzBuzz'
-```
-</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+```</script></section></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 异常情况
+
+undefined|Exception
+101|Exception
+-1|Exception
+</script></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
     <div class="header">
       <div class="logo"></div>
       <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
@@ -1286,18 +1296,8 @@ Expected Output:
       <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
     </div>
 <div class="content">
-# calculate rovers position, 
-## filePath => positionResult
-
-<figure class="code"><pre>
-```bash
-input:
-filePath
-
-output:
-1 3 N
-5 1 E
-```
+# 🚀 动手时间！
+<!-- .slide: class="color--none" data-background="./images/dog.gif" -->
 </script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
     <div class="header">
       <div class="logo"></div>
@@ -1320,14 +1320,6 @@ LMLMLMLMM
 3 3 E
 MMRMMRMRRM
 ```
-</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
-    <div class="header">
-      <div class="logo"></div>
-      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
-    </div>
-<div class="content">
-# 🚀 动手时间！
-<!-- .slide: class="color--none" data-background="./images/dog.gif" -->
 </script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
     <div class="header">
       <div class="logo"></div>
@@ -1374,7 +1366,7 @@ position: 1, 1, W  / 5, 5, N
       <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
     </div>
 <div class="content">
-# calculate position by commands
+# calculate position by multiple commands
 ## currentPosition, commands => position
 
 <figure class="code"><pre>
@@ -1412,7 +1404,7 @@ N -> W -> S -> E
       <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
     </div>
 <div class="content">
-# isOutOfBoundary
+# check is out of boundary
 ## position, boundary => result(True/False)
 
 <figure class="code"><pre>
@@ -2001,7 +1993,7 @@ window.matchMedia = jest.fn().mockImplementation(query => {
       <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
     </div>
 <div class="content">
-# Enzyme 与 React 测试
+# Testing Library 与 React 测试
 
 <img src="./images/tdd/enzyme-api.png" height="560">
 
@@ -2013,52 +2005,20 @@ window.matchMedia = jest.fn().mockImplementation(query => {
       <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
     </div>
 <div class="content">
-# `shallow(node[, options]) => ShallowWrapper`
+
 <figure class="code"><pre>
 ```javascript
-import { shallow } from 'enzyme'
+import { render } from '@testing-library/react'
 
-describe('Enzyme Shallow', () => {
-  it('App should have title equals to Todos', () => {
-    let app = shallow(<App />)
-    expect(app.find('h1').text()).to.equal('Todos')
-  })
-}
-```</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
-    <div class="header">
-      <div class="logo"></div>
-      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
-    </div>
-<div class="content">
-# `mount(node[, options]) => ReactWrapper`
-<figure class="code"><pre>
-```javascript
-import { render } from 'enzyme'
-
-describe('Enzyme Render', () => {
-  it('Todo item should not have todo-done class', () => {
-    let app = render(<App />)
-    expect(app.find('.todo-done').length).to.equal(0)
-  })
-})
-```</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
-    <div class="header">
-      <div class="logo"></div>
-      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
-    </div>
-<div class="content">
-# `render(node[, options]) => CheerioWrapper`
-<figure class="code"><pre>
-```javascript
-import { mount } from 'enzyme'
-
-describe('Enzyme Mount', () => {
-  it('should delete Todo when click button', () => {
-    let app = mount(<App />)
-    let todoLength = app.find('li').length
-    app.find('button.delete').at(0).simulate('click')
-    expect(app.find('li').length).to.equal(todoLength - 1)
-  })
+it('should show h1 title', () => {
+    // given
+    const wrapper = render(<App />)
+    
+    // when
+    const result = wrapper.getByTestId('title').textContent
+    
+    // then
+    expect(result).toBe('练功房前端脚手架')
 })
 ```
 </script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
@@ -2067,28 +2027,19 @@ describe('Enzyme Mount', () => {
       <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
     </div>
 <div class="content">
-# `find()` 方法与选择器
+# Query 查找元素
 <figure class="code"><pre>
 ```javascript
-/* CSS Selector */
-wrapper.find('.foo') //class syntax
-wrapper.find('input') //tag syntax
-wrapper.find('#foo') //id syntax
-wrapper.find('[htmlFor="foo"]') //prop syntax
+getByLabelText
+getByPlaceholderText
+getByText
+getByDisplayValue
 
-/* Component Constructor */
-wrapper.find(MyComponent)
-MyComponent.displayName = 'MyComponent'
-wrapper.find('MyComponent')
+getByAltText
+getByTitle
+getByRole
 
-/* Object Property Selector */
-const wrapper = mount(<div>
-  <span foo={3} bar={false} title="baz" />
-</div>)
-
-wrapper.find({ foo: 3 })
-wrapper.find({ bar: false })
-wrapper.find({ title: 'baz'})
+getByTestId
 ```
 </script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
     <div class="header">
@@ -2100,12 +2051,9 @@ wrapper.find({ title: 'baz'})
 <figure class="code"><pre>
 ```javascript
 it('simulates click events', () => {
-  const onButtonClick = jest.fn()
-  const wrapper = shallow(
-    <Foo onButtonClick={onButtonClick} />
-  )
-  wrapper.find('button').simulate('click')
-  expect(onButtonClick).toHaveBeenCalled()
+  const wrapper = render(<App />)
+  userEvent.type(wrapper.getByTestId('input-number'), '15')
+  expect(wrapper.getByTestId('number-result').textContent).toBe('FizzBuzz')
 })
 ```</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
     <div class="header">
