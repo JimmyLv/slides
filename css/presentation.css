@@ -207,6 +207,7 @@ aside {
   margin: 0 auto;
   max-width: 100%;
   max-height: initial;
+  display: inline-block;
 }
 
 #end .end-qrcode {
