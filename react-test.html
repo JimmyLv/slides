@@ -553,12 +553,12 @@ expect(Promise.reject(new Error('octopus'))).rejects.toThrow('octopus')
 <figure class="code"><pre>
 ```js
 test('the data is peanut butter', async () => {
-  // given 
+  // given
   const params = {}
-  
+
   // when
   const data = await fetchData(params);
-  
+
   // then
   expect(data).toBe('peanut butter');
 });
@@ -723,12 +723,12 @@ test('should show h1 title', () => {
 
 **type**       | _**No Match**_ | _**1 Match**_ | _**1+ Match**_ | _**Await?**_
 -------------- | -------------- | ------------- | -------------- | ------------
-_**getBy**_    | _throw_        | _return_      | _throw_        | _No_        
-_**findBy**_   | _throw_        | _return_      | _throw_        | _Yes_       
-_**queryBy**_  | _null_         | _return_      | _throw_        | _No_        
-**getAllBy**   | throw          | array         | array          | No          
-**findAllBy**  | throw          | array         | array          | Yes         
-**queryAllBy** | []             | array         | array          | No          
+_**getBy**_    | _throw_        | _return_      | _throw_        | _No_
+_**findBy**_   | _throw_        | _return_      | _throw_        | _Yes_
+_**queryBy**_  | _null_         | _return_      | _throw_        | _No_
+**getAllBy**   | throw          | array         | array          | No
+**findAllBy**  | throw          | array         | array          | Yes
+**queryAllBy** | []             | array         | array          | No
 
 </script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
     <div class="header">
@@ -757,10 +757,10 @@ it('simulates click events', () => {
   // given
   const onButtonClick = sinon.spy()
   const wrapper = shallow(<Foo onButtonClick={onButtonClick} />)
-  
+
   // when
   wrapper.find('button').simulate('click')
-  
+
   // then
   expect(onButtonClick.calledOnce).to.be.true
 })
@@ -875,11 +875,11 @@ test('should calculate result by input number', () => {
 
 
 ## 1. 单一数据源
-   
+
 整个应用的 [state](https://cn.redux.js.org/docs/Glossary.html#state) 被储存在一棵 object tree 中，并且这个 object tree 只存在于唯一一个 [store](https://cn.redux.js.org/docs/Glossary.html#store) 中。任何组件都能直接获取 store 状态，这也就是 CQRS 中 *query*（查询）的一种实现。
 
 ## 2. State 是只读的
-   
+
 唯一改变 state 的方法就是显式地触发一个 [action](https://cn.redux.js.org/docs/Glossary.html#action)，action 是一个用于描述已发生事件的普通对象。如果需要支持异步数据流，则需要像 [redux-thunk](https://github.com/gaearon/redux-thunk) 或 [redux-promise](https://github.com/acdlite/redux-promise) 这样支持异步的 middleware 中间件。
 
 ## 3. 使用纯函数来执行修改
@@ -912,7 +912,7 @@ import reducers from './reducers'
 import actions from './actions'
 
 test(`
-  should merge user comments and remove duplicated comments by comment id 
+  should merge user comments and remove duplicated comments by comment id
   when action saveUserComments is dispatched with new fetched comments
 `, () => {
   const state = {
@@ -1071,7 +1071,7 @@ export function BookList({ category }) {
   const books = tag
     ? booksByCategory.filter(book => book.tags.includes(tag))
     : booksByCategory
-  
+
   return <>...</>
 }
 ```
@@ -1083,7 +1083,7 @@ export function BookList({ category }) {
       <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
     </div>
 <div class="content">
-# `renderWithRedux()`
+## ReduxWrapper `renderWithRedux()`
 
 <figure class="code"><pre>
 ```js
@@ -1119,7 +1119,7 @@ export function renderWithRedux(
     </div>
 <div class="content">
 
-# `renderWithRouter()`
+## RouterWrapper `renderWithRouter()`
 
 <figure class="code"><pre>
 ```js
@@ -1204,8 +1204,8 @@ https://edmodo.atlassian.net/wiki/spaces/ENG/pages/1428783441/Use+React+Testing+
 - 相互独立
 
 ## Testing 单元测试
-- Given 
-- When 
+- Given
+- When
 - Then
 
 ## Refactoring 重构
