@@ -1,0 +1,1580 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>React 专项实战营 01：夯实基础 + 熟悉生态 - JimmyLv</title>
+  <link rel="stylesheet" href="./lib/css/font-awesome.css">
+  <link rel="stylesheet" href="./css/reveal.css">
+  <link rel="stylesheet" href="./css/theme/myplanet.css">
+  <link rel="stylesheet" href="./css/presentation.css">
+
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="./lib/css/highlight-github.css">
+  <!--<link rel="stylesheet" href="./css/highlight/zenburn.css">-->
+  <link rel="stylesheet" href="./css/print/paper.css"
+        type="text/css" media="print">
+
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/JimmyLv/jimmylv.github.io/favicon.ico">
+
+  <meta property="og:url" content="https://blog.jimmylv.info/" />
+  <meta property="og:title" content="React 专项实战营 01：夯实基础 + 熟悉生态" />
+  <meta property="og:image" content="https://blog.jimmylv.info/public/img/gavatar.jpg" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@jimmy_jinglv">
+  <meta name="twitter:image" content="https://gapple.github.io/presentation-better-analytics/images/twitter-card.png">
+  <script src="./js/reveal-print.js"></script>
+  <style type="text/css">
+    .reveal .slides section.title .logo--full,
+    .reveal .slides section:not([class*='color--']) .logo,
+    .reveal .slides section.color--none .logo {
+      height: 10vmin;
+      background-image: url(./images/xp_logo.png);
+    }
+    /*.reveal .slides section.color--none div.logo {
+      background-image: url(../../images/xp_logo_black.png);
+    }*/
+  </style>
+</head>
+<body>
+<div class="reveal pattern--extreme-programming">
+  <div class="slides commands">
+    <section>
+      <section class="title" id="title">
+        <div class="grid-wrapper">
+          <div class="header">
+            <div class="logo logo--full"><span class="visually-hidden">JimmyLv</span></div>
+          </div>
+          <div class="content">
+            <h1>React 专项实战营 01：夯实基础 + 熟悉生态<br /> <small>React in Action 01 - Basic & Ecosystem</small></h1>
+            <div class="description">
+              🧗‍♂️ 中国极限编程实践者社群. ©2021
+            </div>
+          </div>
+          <div class="credit">
+            <hr>
+            <div class="label">Presented By</div>
+            <div class="name">Jimmy Lv</div>
+          </div>
+          <a class="presentation-url" href="https://blog.jimmylv.info/">https://blog.jimmylv.info/</a>
+        </div>
+      </section>
+      <section class="about" id="about">
+        <img src="./images/professional.jpg" alt="JimmyLv">
+        <div class="grid-wrapper">
+          <div class="content">
+            <aside>
+              <h2>Hey, I'm <em>JimmyLv</em>!</h2>
+              <hr>
+              <ul class="projects">
+                <li><a href="https://blog.jimmylv.info">想做产品，却误入程序世界爱上设计的摄影师。</a></li>
+              </ul>
+              <hr>
+              <ul class="accounts">
+                <li class="user"><a href="https://blog.jimmylv.info"><i class="fa fa-vcard-o"></i>
+                  <span>吕靖</span></a></li>
+                <li class="zhihu"><a href="https://www.zhihu.com/people/JimmyLv"><i class="fa fa-search"></i>
+                  <span>吕立青</span></a></li>
+                <li class="github"><a href="https://www.github.com/JimmyLv"><i class="fa fa-github"></i>
+                  <span>JimmyLv</span></a></li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+      <section class="about" id="lecture">
+        <div class="grid-wrapper">
+          <div class="content">
+            <ul>
+              <li>@极客学院 极限编程实战营课程<a href='https://www.jiker.com/plus/70'>21天前端TDD-测试驱动开发实战营</a></li>
+              <li>@宝尊电商 管培生IT班「<strong>Vue</strong>前端培训」，担任讲师*2年 & “校长”</li>
+              <li>@<strong>Thought</strong>Works 思沃学院 2017、2018 届毕业生培训负责人和讲师</li>
+              <li>@ActiveNetwork 企业内部技术培训「<strong>JavaScript</strong>测试驱动开发」</li>
+              <li>@HackStart 开黑学堂 “Agile Education” 「<a href='https://www.hackerstart.cn/'>Web 全栈开发</a>」教学讲师</li>
+              <li>组织和主讲过微信小程序的系列 Workshop 和 <strong>React</strong> 系列 Workshop</li>
+              <li><a href='https://web-conf.dev/#2019/'>2019 成都 Web 全栈大会</a> 敏捷 TDD 工作坊讲师；FCC “<a href='http://vlambda.com/wz_ww5Hi8Ug3P.html'>前端敏捷开发落地与实践</a>”讲师</li>
+              <li><strong>Thought</strong>Works 技术雷达主题宣讲：Enzyme、渐进式Web应用(PWA)、微前端</li>
+              <li>程序猿的效率提升、知识管理、如何自学、单元测试、代码重构、测试驱动开发等主题</li>
+              <li>技术类的还包括前端开发模式演进、前端测试、<strong>Webpack</strong>、AngularJS、AdobeAEM等等</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="about" id="slogan">
+        <div class="grid-wrapper">
+          <div class="content">
+            <h1>在学习的同时帮助他人学习;</h1>
+            <h1>在成长的同时帮助他人成长。</h1>
+          </div>
+        </div>
+      </section>
+    </section>
+    <section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+
+# 🔥🚀 先来热个身！
+<!-- .slide: class="color--none"-->
+
+<aside class="notes"><p>我们来玩一个小游戏Game: “Type Racer” 游戏规则</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 🏁🏎 赛车游戏: Type Racer
+
+规则说明：
+
+- 加入在线网站 https://play.typeracer.com?rt=281xdnz105
+- 给自己取一个超🆒的名字
+- 打字速度越快，赛车跑得越快
+- 获得第一名者有惊喜 🎁
+
+<aside class="notes"><p>其实这个不是惩罚，而是一个介绍自己的“机会”，“三句话介绍自己”，注意是三句话哦！当然，我们有所谓的“惩罚”，就会有奖励，留到最后一位同学</p>
+<p>简单互动，询问你的技巧，秀出来</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 🤩 秘籍：慢即是快，减少错误率
+
+[![](./images/www.keybr.com_profile.png)](https://www.keybr.com/profile)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 推荐几个练习的网站
+
+- ✨ 推荐 [Take typing speed test. Learn to type faster.](https://www.keybr.com/profile)
+- ⚙️ 代码 [Typing Practice for Programmers | typing.io](https://typing.io/lessons)
+- 🏎 赛车 [TypeRacer - Test your typing speed and learn to type faster.](http://play.typeracer.com)
+- 🌱 基础 [Type Fu - Typing training](https://type-fu.com/)
+</script></section></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 📢 Agenda
+
+### 0️⃣  介绍「实战营」与课堂安排
+### 1️⃣  第1章 React 设计哲学：简单之美
+### 2️⃣  第2章 函数组件与 React Hooks
+### 3️⃣  第3章 高效开发：脚手架和组件库
+### 4️⃣  第4章 状态管理：React Redux
+
+<aside><img src="./images/tdd/agenda.jpg" height="400" /></aside>
+
+<aside class="notes"><p>我们从四个方面来介绍今天的内容</p>
+<p>程序员带孩子，都是从 0 开始数数丶
+<a href="https://devhints.io/react">React.js cheatsheet</a></p>
+</aside></script></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🛠 WHY「实战营」
+
+### 1. 认同“基本功”对做好软件的决定性价值
+### 2. 采用“刻意练习”方法提升基本功
+
+<aside><img src="./images/mabu.png" height="400" /></aside>
+
+<aside class="notes"><ol>
+<li>以极限编程的“核心实践”为基础；</li>
+<li>提炼针对软件开发四大“基本能力”*的刻意练习方法；</li>
+<li><p>面向对极限编程感兴趣、有意愿打扎实基本功的“极限编程实践者”。</p>
+</li>
+<li><p>软件开发四大基本能力：需求管理；项目管理；配置管理；质量保障。</p>
+</li>
+</ol>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 👨‍💻 刻意练习三要素
+
+### 1️⃣ ⼤量重复的练习
+### 2️⃣ 在学习区开展练习
+### 3️⃣ 获得及时有效的反馈
+
+<aside><img src="./images/tdd/practice.jpg" height="560"/></aside>
+
+<aside class="notes"><p>（告诉学生应该怎么做）
+（做给学生看）
+（让学生练习）
+（老师在旁边观察）
+（鼓励做的好的，纠正做的不好的地方）
+总结一下就是：你练，你也会</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## React 专项实战营 - 课程大纲
+
+Day 1 夯实基础 + 熟悉生态 | Day 2 专项突破 + 综合运用
+
+<img src="./images/react/React%20专项实战营.png" height="640px"></img>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<h1 class="colorful-title">学JS，真的可以为所欲为吗？</h1>
+
+<!-- .slide: class="color--none" data-background="./images/js-cult.gif" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 课程 PPT 地址 [slides/react](https://jimmylv.gitee.io/slides/react)
+
+[jxnblk/mdx-deck: ♠️ React MDX-based presentation decks](https://github.com/jxnblk/mdx-deck)
+
+<iframe src="https://codesandbox.io/s/mdx-deck-6ytzw?fontsize=18&hidenavigation=1&theme=dark"
+style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+title="mdx-deck"
+allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+/>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+## 随堂练习 [CodeSandbox](https://codesandbox.io/)
+
+<iframe src="https://codesandbox.io/embed/github/JimmyLv/react-start?autoresize=1&fontsize=18&hidenavigation=1&theme=dark"
+style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
+title="mdx-deck"
+allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+/>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 直播默契 - 126
+
+- 1️⃣  Yes
+- 2️⃣  No
+- 6️⃣  Wow 🤙🤙🤙🤙🤙🤙
+
+<aside class="notes"><p>举个例子，大家吃早饭了吗？你觉得自己颜值高吗？</p>
+</aside></script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 第1章 React 设计哲学：简单之美
+<!-- .slide: class="color--none" -->
+
+介绍 React 框架及其诞生背景，对比其他前端框架；
+逐一讲解 React 基础特性，围绕知识点搭配随堂练习，加强记忆和灵活运用的能力
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 💡 技能点
+
+- UI 组件化
+- JSX 语法糖
+- State & Props
+
+- Virtual DOM
+- Lifecycle 生命周期
+- Event Handler 事件处理
+- React DevTool
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🧐 **什么是 React？**
+<!-- .slide: class="color--none"-->
+
+![](./images/react/react-universe.jpeg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+## 这是一个框架的时代
+
+<iframe src="https://2020.stateofjs.com/en-US/technologies/front-end-frameworks/" width="1440" height="960"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+  />
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+- [React, Vue.js, Angular - Explore - Google Trends](https://trends.google.com/trends/explore?date=2014-01-01%202021-01-05&q=%2Fm%2F012l1vxv,%2Fg%2F11c0vmgx5d,%2Fg%2F11c6w0ddw9)
+- [react,vue.js,angular 百度指数](http://index.baidu.com/v2/main/index.html#/trend/react?words=react,vue.js,angular)
+- [react vs vue vs @angular/core | npm trends](https://www.npmtrends.com/react-vs-vue-vs-@angular/core)
+- [Front-end frameworks popularity (React, Vue and Angular)](https://gist.github.com/tkrotoff/b1caa4c3a185629299ec234d2314e190)
+- [2020 JavaScript Rising Stars](https://risingstars.js.org/2020/zh/)
+- [Best of JavaScript](https://bestofjs.org/)
+- [JS.coach](https://js.coach/)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## DOM Tree
+
+![](./images/react/DOM%20tree.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 元素周期表
+
+![](./images/react/Periodic-Table-of-HTML-Elements.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Atomic Design
+
+![](./images/pb/atomic-design-abstract-concrete.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 🤔 你会如何描述以下页面？
+
+<iframe src="http://www.geekpark.net/" width="1440" height="960"></iframe>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 🌲 UI 组件化
+
+![](https://static001.infoq.cn/resource/image/31/40/31e51ab0b4710441e2c60e8a98e0bf40.png)
+
+<aside class="notes"><p>而且组件拆分越细，越有优化的可能性，性能越好。[[组件越小越好，越有组合的可能性]]</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## State & Props Component
+
+![img.png](images/react/react-state-component-dom.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## State & Props Components Tree
+
+![img.png](images/react/react-props-state.jpg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 🍬 JSX 语法糖：声明式定义组件
+
+![](./images/react/react_proto.jpg)
+
+<aside class="notes"><ul>
+<li>以[[声明式]]的方法来直观的定义用户界面的方式，正是其最大的价值。</li>
+<li>让代码直观易懂是软件项目质量的重要保证之一，这意味着代码更加容易理解和维护，出现 Bug 时更容易调试和修复。</li>
+</ul>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 🍬 JSX 语法糖：声明式定义组件
+
+<figure class="code"><pre>
+```jsx
+<App>
+  <Header />
+  <Controls />
+  <Body>
+    <PostThumbnail />
+    <Post {...props}/>
+    <SideMenu />
+  </Body>
+</App>
+```
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🚀 动手时间！
+<!-- .slide: class="color--none" data-background="./images/banana.gif" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 🎨 Demo Time!
+<figure class="code"><pre>
+```bash
+git clone https://github.com/JimmyLv/react-basic.git
+cd react-basic
+
+yarn install
+yarn start
+```
+
+<iframe src="https://codesandbox.io/embed/github/JimmyLv/react-basic?autoresize=1&fontsize=18&hidenavigation=1&theme=dark" />
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Virtual DOM
+
+- React 始终整体“刷新”页面
+- 开发者 无需关心细节
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 传统 DOM 关注太多细节
+
+[jQuery 17 Visual Cheat Sheet_v6](https://appletree.or.kr/quick_reference_cards/JavaScript/jQuery-17-Visual-Cheat-Sheet.pdf)
+
+![](./images/react/jquery-17-visual-cheat-sheet.jpg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+![](./images/react/all-refresh.jpg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 浏览器更新 DOM
+
+![](./images/react/browser-painting.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## State 状态更新
+
+![](./images/react/DOM%20diff%2001.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## React DOM Diff
+
+![](./images/react/react-dom-diff.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Virtual DOM 对比
+
+![](https://static001.infoq.cn/resource/image/1f/5a/1f522dc11891365ce77c7650f517495a.png)
+
+<aside class="notes"><p>那他是如何对比找出这个需要变更的 DOM 呢？
+两种情况：（1）节点类型不同 ，（2）节点类型相同，但是属性不同。
+列表节点的比较，则需要每个节点唯一的标识（key），那么 React 能够找到正确的位置去插入新的节点</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 最终得到 UI 变更
+
+![](./images/react/react-ui-diff.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Lifecycle 生命周期
+
+<iframe src="https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/"></iframe>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Event Handler 事件处理
+
+![](./images/react/react-user-event.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Event Delegation 事件代理
+
+![](./images/react/react_17_delegation.png)
+
+<aside class="notes"><p><a href="https://reactjs.org/blog/2020/08/10/react-v17-rc.html">React v17.0 Release Candidate: No New Features – React Blog</a></p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## React DevTool
+
+![](./images/react/react-devtools.png)
+
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 🎨 Demo Time!
+<figure class="code"><pre>
+```bash
+git clone https://github.com/JimmyLv/react-basic.git
+cd react-basic
+
+yarn start
+```
+
+<iframe src="https://codesandbox.io/embed/github/JimmyLv/react-basic?autoresize=1&fontsize=18&hidenavigation=1&theme=dark" />
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" -->
+# 总结一下
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 第2章 函数组件与 React Hooks
+
+<!-- .slide: class="color--none" -->
+
+介绍 React 组件化开发的设计模式，如何在函数组件内部使用 React Hooks 操作 State 和生命周期，以及如何做到关注分离和代码复用
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 💡 技能点
+
+- HOC 高阶组件
+- Render Props
+- React Hooks
+  - useState
+  - useEffect
+  - useContext
+- Context API
+- ahooks 自定义 Hooks
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 函数组件 vs 类组件
+
+![](./images/react/react-hooks-component-comparison.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## React Hooks 生命周期
+
+<iframe src="https://wavez.github.io/react-hooks-lifecycle/"></iframe>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 常用的 React Hooks
+
+- useState
+- useEffect
+- useContext
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## React Hooks Lifecycle
+
+![](./images/react/react-lifecycle-react-hooks.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## API 数据请求
+
+![](./images/react/react-database.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🚀 动手时间！
+<!-- .slide: class="color--none" data-background="./images/banana.gif" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 🎨 Demo Time!
+<figure class="code"><pre>
+```bash
+git clone https://github.com/JimmyLv/react-basic.git
+cd react-basic
+
+yarn install
+yarn start
+```
+
+<iframe src="https://codesandbox.io/embed/github/JimmyLv/react-basic?autoresize=1&fontsize=18&hidenavigation=1&theme=dark" />
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## React 组件模式
+
+- HOC 高阶组件
+- Render Props
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 嵌套地狱 - HOC [高阶组件](https://zh-hans.reactjs.org/docs/higher-order-components.html#gatsby-focus-wrapper)
+
+![](./images/react/react-hoc-WrapperHell.jpg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 嵌套地狱 - [Render Props](https://zh-hans.reactjs.org/docs/render-props.html)
+
+![](./images/react/react-render-props.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 自定义 Hooks
+
+- 关注分离
+- 代码复用
+
+![](./images/react/react-hoc-vs-hooks.jpeg)
+
+## 来自社区的 React Hooks
+
+- [ahooks](https://ahooks.js.org/)
+- [react-use](https://github.com/streamich/react-use)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## React Props 深层传递
+
+![](./images/react/react-props-deep.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Context API
+
+![](./images/react/react-context.jpeg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Context Provider & Consumer
+
+![](./images/react/react-context-consumer.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🚀 动手时间！
+<!-- .slide: class="color--none" data-background="./images/banana.gif" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" -->
+# 总结一下
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 第3章 高效开发：脚手架和组件库
+<!-- .slide: class="color--none" data-background="./images/react/frontend-background.png -->
+
+介绍 React 生态中最流行的脚手架和相关组件库，搭配 Ant Design 快速搭建项目，介绍 Ant Design 常用组件和自定义主题，结合示例讲解使用时需要注意的问题
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 💡 技能点
+
+- Create React App 官方脚手架  
+- Umi Ant Design 脚手架  
+- API 数据请求
+- Less 样式语言
+- Antd 重要组件
+  - Grid 栅格布局
+  - Form 表单组件  
+  - List 列表组件
+  - Table 表格组件
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## WHY 脚手架工具
+
+![](./images/react/FrontEnd-ecosystem.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Create React App 官方脚手架
+
+![](./images/react/react-eco-system.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## NodeJS
+
+![](./images/react/NodeJS.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Webpack 构建
+
+![](./images/react/Webpack Bundle Anything.jpg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Babel 编译
+
+![](./images/react/react-jsx.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## React 组件样式
+
+![](./images/react/react-styling-tools.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 引入 Ant Design 组件库
+
+![](./images/react/react-antd.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 🚀 动手时间！
+<!-- .slide: class="color--none" data-background="./images/banana.gif" -->
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 🎨 Demo Time!
+<figure class="code"><pre>
+```bash
+git clone https://github.com/JimmyLv/react-antd.git
+cd react-antd
+
+yarn install
+yarn start
+```
+
+<iframe src="https://codesandbox.io/embed/github/JimmyLv/react-antd?autoresize=1&fontsize=18&hidenavigation=1&theme=dark" />
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Umi 脚手架 + Ant Design
+
+![](./images/react/react-umi.jpeg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Antd 组件演示
+
+- Grid 栅格布局
+- Form 表单组件  
+- List 列表组件
+- Table 表格组件
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" -->
+# 总结一下
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+# 第4章 状态管理：React Redux
+
+介绍前端为何需要状态管理，React 全家桶最常用的状态管理库 Redux，深入理解 Store、Action、Reducer 三大基本概念，如何在 React 中使用 Redux，以及总结 Redux 最佳实践，包括 State 结构组织、异步数据请求等
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 💡 技能点
+
+- Store API
+- 使用 Redux Hooks
+  - useReducer
+  - useSelector
+  - useDispatch
+- Redux 异步处理
+- Redux DevTool
+- dva 最佳实践
+- *对比 MobX
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+## 为什么前端需要状态管理？
+
+<iframe src="https://cart.taobao.com/cart.htm"></iframe>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Redux State Flow
+
+![Redux data flow diagram](https://redux.js.org/assets/images/ReduxDataFlowDiagram-49fa8c3968371d9ef6f2a1486bd40a26.gif)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+## Redux Store
+
+1. getState()
+2. dispatch(action)
+3. subscribe(listener)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+![](./images/react/SELECTOR-PATTERN-IN-REACT-REDUX-APPS-01.jpg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Redux Action
+
+(state + action) = new state
+
+![](./images/react/SELECTOR-PATTERN-IN-REACT-REDUX-APPS-02.jpg)
+
+## Redux Action
+
+![](./images/react/SELECTOR-PATTERN-IN-REACT-REDUX-APPS-03.jpg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Redux Reducer
+
+![](./images/react/redux-article-3-04.svg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Redux Reducers
+
+![](./images/react/redux-article-3-05.svg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## React & Redux 组件与 Store
+
+![](./images/react/react-redux-connect.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+![](./images/react/redux-article-3-01.svg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+![](./images/react/redux-article-3-02.svg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+![](./images/react/redux-article-3-03.svg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Redux Selectors
+
+![](./images/react/SELECTOR-PATTERN-IN-REACT-REDUX-APPS-04.jpg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Redux Selectors
+
+![](./images/react/SELECTOR-PATTERN-IN-REACT-REDUX-APPS-05.jpg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 使用 Redux Hooks
+
+- useReducer
+- useSelector
+- useDispatch
+
+![](./images/react/react-redux-hook.png)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 🎨 Demo Time!
+<figure class="code"><pre>
+```bash
+git clone https://github.com/JimmyLv/react-redux-exchange-rate.git
+cd react-redux-exchange-rate
+
+yarn install
+yarn start
+```
+
+<iframe src="https://codesandbox.io/embed/github/JimmyLv/react-redux-exchange-rate?autoresize=1&fontsize=18&hidenavigation=1&theme=dark" />
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Redux 异步处理
+
+![Redux async data flow diagram](https://redux.js.org/assets/images/ReduxAsyncDataFlowDiagram-d97ff38a0f4da0f327163170ccc13e80.gif)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## Redux DevTool
+
+![](./images/react/redux-devtool.jpg)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+## 其他数据流方案
+
+- dva 最佳实践
+- *对比 MobX
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+<!-- .slide: class="color--none" -->
+# 总结一下
+</script></section></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 回顾一下大家的期望
+
+[React 专项实战营 期望收集 - 中信证券 - 报表](https://jinshuju.net/forms/yInSY8/reports)
+
+<figure class="code"><pre>
+```markdown
+1. react基本框架
+2. ant design 基本框架
+3. 前端开发方法
+
+1. 熟悉react框架
+2. 熟悉ant design组件
+3. 熟悉restful框架
+
+1. 希望对所学内容的整体架构有了解。
+2. 希望掌握基础入门水平。
+3. 希望建立起未来在这方面的兴趣。
+
+1. 能独立完成简单前端需求开发
+2. 能独立学习进阶前端技术
+3. 能更好地配合后端开发
+```
+</script></section><section  data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+Day 2 专项突破 + 综合运用
+</script></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+# 第5章 动态路由：React Router
+
+介绍客户端路由的概念，介绍 React Router 基础用法，嵌套路由，配合 Hooks 获取路由参数，如何按照路由自动化按需加载
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 💡 技能点
+
+Router 页面结构
+
+使用 Hooks
+
+useHistory
+
+useLocation
+
+useParams
+
+useRouteMatch
+
+React.lazy
+
+Suspense
+
+[Lazy-Loading Your React App](https://www.telerik.com/blogs/lazy-loading-your-react-app)
+
+Error Boundary 错误边界
+
+Code Splitting 代码分割
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 第6章 数据可视化：ECharts 图表库
+<!-- .slide: class="color--none" -->
+介绍如何在 React 集成# 第三方图表库，开发实用功能图表页面，并集成常用的 ECharts 图表
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 💡 技能点
+
+React 项目集成 ECharts
+
+折线图、柱状图、散点图、饼图、K线图
+
+如何自定义图表样式
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# K线图 - 图表简介
+
+股票图
+
+K 线图，原名蜡烛图，又称阴阳图、棒线、红黑线或蜡烛线，常用于展示股票交易数据。
+
+<iframe src="https://axurepro.gitee.io/antv/#g=1&p=k%E7%BA%BF%E8%82%A1%E7%A5%A8%E5%9B%BE" width="1440" height="960"></iframe>
+
+- [K 线图 - AntV](https://antv.antfin.com/zh-cn/vis/chart/k-chart.html)
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 图表用法
+
+K 线图主要用于金融领域里展示股票，期货等交易数据，按照时间维度分为日 K 线、周 K 线、月 K 线。展示的数据需要满足 K 线构成的四要素：即开盘价、收盘价、最高价、最低价。
+
+<iframe src="https://axurepro.gitee.io/antv/#g=1&p=shanghai_index" width="1440" height="960"></iframe>
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+# 第7章 工程实践：前端项目自动化管理
+
+介绍基于 Jenkins，Git，Docker，Nginx 服务器的自动化部署流程，项目打包处理，如何减小打包大小和浏览器缓存等相关知识
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 💡 技能点
+
+Webpack 打包
+
+Jenkins 持续集成
+
+Jest 自动化测试
+
+Testing Library 单元测试
+
+Prettier 代码格式化
+
+ESLint 代码检查
+
+Git Hook
+
+Docker 容器
+
+Nginx 服务器
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+# 第8章 总结答疑：React 项目最佳实践
+
+回顾课程的主要知识点，结合实际开发项目，总结使用 React 技术栈的最佳实践
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+
+# 💡 技能点
+
+React Hooks
+
+React Router
+
+React Redux
+
+性能优化
+
+Chrome Profiler
+
+ImmutableJS
+
+Reselect
+
+[dva-hackernews/item.js at master · dvajs/dva-hackernews](https://github.com/dvajs/dva-hackernews/blob/master/src/selectors/item.js)
+</script></section></section><section ><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+<!-- .slide: class="color--none" -->
+# 总结一下
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 🤓 总结：快速响应变化，缩短反馈周期
+
+* 缺少**可重构性**的软件，不可能快速响应变化。
+* 没有高覆盖率、快速运行的**单元测试**，重构就不可能落地。
+* **测试驱动开发**是获得高质量单元测试集的唯一有效方法。
+* 建立在充分覆盖且运行快速的自动化测试基础上的**持续集成**是迭代式开发的必要条件。
+
+<aside class="notes"><p>缺陷发现越早，修复成本越低</p>
+</aside></script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 总结：武林秘籍 📓
+
+
+## Tasking 任务分解
+- 完全穷尽
+- 相互独立
+
+## Testing 单元测试
+- Given
+- When
+- Then
+
+## Refactoring 重构
+- 旧的不变，新的创建；
+- 一步切换，旧的再见。
+
+<aside><img src="./images/tdd/Test-Driven-Development-Cycle.jpg" height="700"/></aside>
+</script></section><section data-markdown><script type="text/template"><div class="grid-wrapper">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="twitter"><a href="https://github.com/JimmyLv"><i class="fa fa-github"></i> <span>JimmyLv</span></a></div>
+    </div>
+<div class="content">
+# 📚 推荐书籍
+
+* 《重构2：改善既有代码的设计》
+* 《Clean Code 代码整洁之道》
+* 《Test-Driven Development 测试驱动开发》
+* 《Refactoring to Patterns 重构与模式》
+* 《设计模式 : 可复用面向对象软件的基础》
+* 《计算机程序的构造和解释》
+</script></section></section>
+    <!-- color--light color--midnight color--ice color--radiant -->
+    <section id="end" class="color--midnight">
+      <div class="grid-wrapper">
+        <div class="content">
+          <h1>Thanks for <span id="you">Your</span> Attention!</h1>
+          <div class="end-qrcode">
+            <img src="./images/qrcode/wechat_512.png" alt="wechat" width="512" height="512">
+          </div>
+          <br>
+          <h4>在学习的同时帮助他人学习；</h4>
+          <h4>在成长的同时帮助他人成长。</h4>
+          <br>
+          <br>
+          <a href="https://blog.jimmylv.info"><i class="fa fa-at"></i><span>JimmyLv</span></a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script src="./lib/js/head.min.js"></script>
+<script src="./js/reveal.js"></script>
+<script>
+  function extend() {
+    var target = {}
+    for (var i = 0; i < arguments.length; i++) {
+      var source = arguments[i]
+      for (var key in source) {
+        if (source.hasOwnProperty(key)) {
+          target[key] = source[key]
+        }
+      }
+    }
+    return target
+  }
+
+  // Optional libraries used to extend on reveal.js
+  var deps = [
+    { src: './lib/js/classList.js', condition: function () { return !document.body.classList } },
+    {
+      src: './plugin/markdown/marked.js',
+      condition: function () { return !!document.querySelector('[data-markdown]') },
+    },
+    {
+      src: './plugin/markdown/markdown.js',
+      condition: function () { return !!document.querySelector('[data-markdown]') },
+    },
+    {
+      src: './plugin/highlight/highlight.js',
+      async: true,
+      callback: function () { hljs.initHighlightingOnLoad() },
+    },
+    { src: './plugin/zoom-js/zoom.js', async: true },
+    { src: './plugin/notes/notes.js', async: true },
+    { src: './plugin/math/math.js', async: true },
+  ]
+
+  // default options to init reveal.js
+  var defaultOptions = {
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    transition: 'default', // none/fade/slide/convex/concave/zoom
+    dependencies: deps,
+  }
+
+  // options from URL query string
+  var queryOptions = Reveal.getQueryHash() || {}
+
+  // var options = {}
+
+  options = extend(defaultOptions, options, queryOptions)
+</script>
+
+
+<script>
+  Reveal.initialize(options)
+</script>
+<script src="./js/reveal-init.js"></script>
+
+</body>
+</html>
